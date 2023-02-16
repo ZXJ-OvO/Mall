@@ -15,7 +15,6 @@ import java.util.Map;
 /**
  * 属性分组
  *
- * @author zhouxinjie
  */
 @RestController
 @RequestMapping("product/attrgroup")

@@ -52,7 +52,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  *
  */
 @SpringBootApplication
-@EnableDiscoveryClient
+@EnableDiscoveryClient  // 注解开启服务注册与发现
 @MapperScan("com.zxj.mall.coupon.dao")
 public class MallCouponApplication {
 

@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>mall-common</artifactId>
-    <description>每一个微服务公共的依赖和其他资源</description>
+    <description>每一个微服务公共的依赖的其他资源</description>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -66,7 +66,6 @@
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-            <!--            <version>2.1.0.RELEASE</version>-->
         </dependency>
 
         <!-- 配置中心 -->
@@ -77,6 +76,7 @@
 
     </dependencies>
 
+    <!--dependencyManagement规定了对Spring-Cloud-Alibaba的版本管理-->
     <dependencyManagement>
         <dependencies>
             <dependency>

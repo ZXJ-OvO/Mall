@@ -14,15 +14,15 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * 自定义的校验注解
  */
 @Documented
-@Constraint(validatedBy = { com.zxj.common.valid.ListValueConstraintValidator.class })
-@Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
+@Constraint(validatedBy = {com.zxj.common.valid.ListValueConstraintValidator.class})
+@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Retention(RUNTIME)
 public @interface ListValue {
     String message() default "{com.zxj.common.valid.ListValue.message}";
 
-    Class<?>[] groups() default { };
+    Class<?>[] groups() default {};
 
-    Class<? extends Payload>[] payload() default { };
+    Class<? extends Payload>[] payload() default {};
 
-    int[] vals() default { };
+    int[] vals() default {};
 }
