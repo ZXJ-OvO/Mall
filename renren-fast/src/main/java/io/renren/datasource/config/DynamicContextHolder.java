@@ -1,10 +1,4 @@
-/**
- * Copyright (c) 2018 人人开源 All rights reserved.
- *
- * https://www.renren.io
- *
- * 版权所有，侵权必究！
- */
+
 
 package io.renren.datasource.config;
 
@@ -13,17 +7,9 @@ import java.util.Deque;
 
 /**
  * 多数据源上下文
- *
- * @author Mark sunlightcs@gmail.com
  */
 public class DynamicContextHolder {
-    @SuppressWarnings("unchecked")
-    private static final ThreadLocal<Deque<String>> CONTEXT_HOLDER = new ThreadLocal() {
-        @Override
-        protected Object initialValue() {
-            return new ArrayDeque();
-        }
-    };
+    private static final ThreadLocal<Deque<String>> CONTEXT_HOLDER = ThreadLocal.withInitial(ArrayDeque::new);
 
     /**
      * 获得当前线程数据源

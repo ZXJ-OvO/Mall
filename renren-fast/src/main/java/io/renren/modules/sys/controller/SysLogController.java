@@ -1,10 +1,4 @@
-/**
- * Copyright (c) 2016-2019 人人开源 All rights reserved.
- *
- * https://www.renren.io
- *
- * 版权所有，侵权必究！
- */
+
 
 package io.renren.modules.sys.controller;
 
@@ -24,25 +18,23 @@ import java.util.Map;
 
 /**
  * 系统日志
- *
- * @author Mark sunlightcs@gmail.com
  */
 @Controller
 @RequestMapping("/sys/log")
 public class SysLogController {
-	@Autowired
-	private SysLogService sysLogService;
-	
-	/**
-	 * 列表
-	 */
-	@ResponseBody
-	@GetMapping("/list")
-	@RequiresPermissions("sys:log:list")
-	public R list(@RequestParam Map<String, Object> params){
-		PageUtils page = sysLogService.queryPage(params);
+    @Autowired
+    private SysLogService sysLogService;
 
-		return R.ok().put("page", page);
-	}
-	
+    /**
+     * 列表
+     */
+    @ResponseBody
+    @GetMapping("/list")
+    @RequiresPermissions("sys:log:list")
+    public R list(@RequestParam Map<String, Object> params) {
+        PageUtils page = sysLogService.queryPage(params);
+
+        return R.ok().put("page", page);
+    }
+
 }

@@ -1,10 +1,3 @@
-/**
- * Copyright (c) 2018 人人开源 All rights reserved.
- *
- * https://www.renren.io
- *
- * 版权所有，侵权必究！
- */
 
 package io.renren.datasource.aspect;
 
@@ -26,8 +19,6 @@ import java.lang.reflect.Method;
 
 /**
  * 多数据源，切面处理类
- *
- * @author Mark sunlightcs@gmail.com
  */
 @Aspect
 @Component
@@ -47,13 +38,13 @@ public class DataSourceAspect {
         Class targetClass = point.getTarget().getClass();
         Method method = signature.getMethod();
 
-        DataSource targetDataSource = (DataSource)targetClass.getAnnotation(DataSource.class);
+        DataSource targetDataSource = (DataSource) targetClass.getAnnotation(DataSource.class);
         DataSource methodDataSource = method.getAnnotation(DataSource.class);
-        if(targetDataSource != null || methodDataSource != null){
+        if (targetDataSource != null || methodDataSource != null) {
             String value;
-            if(methodDataSource != null){
+            if (methodDataSource != null) {
                 value = methodDataSource.value();
-            }else {
+            } else {
                 value = targetDataSource.value();
             }
 

@@ -1,10 +1,4 @@
-/**
- * Copyright (c) 2016-2019 人人开源 All rights reserved.
- *
- * https://www.renren.io
- *
- * 版权所有，侵权必究！
- */
+
 
 package io.renren.modules.app.controller;
 
@@ -22,8 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * APP测试接口
- *
- * @author Mark sunlightcs@gmail.com
  */
 @RestController
 @RequestMapping("/app")
@@ -33,20 +25,20 @@ public class AppTestController {
     @Login
     @GetMapping("userInfo")
     @ApiOperation("获取用户信息")
-    public R userInfo(@LoginUser UserEntity user){
+    public R userInfo(@LoginUser UserEntity user) {
         return R.ok().put("user", user);
     }
 
     @Login
     @GetMapping("userId")
     @ApiOperation("获取用户ID")
-    public R userInfo(@RequestAttribute("userId") Integer userId){
+    public R userInfo(@RequestAttribute("userId") Integer userId) {
         return R.ok().put("userId", userId);
     }
 
     @GetMapping("notToken")
     @ApiOperation("忽略Token验证测试")
-    public R notToken(){
+    public R notToken() {
         return R.ok().put("msg", "无需token也能访问。。。");
     }
 
