@@ -4,15 +4,10 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
-import java.util.Date;
 import lombok.Data;
 
 /**
  * spu信息介绍
- * 
- * @author zhouxinjie
- * @email 206269068@qq.com
- * @date 2022-10-30 17:07:24
  */
 @Data
 @TableName("pms_spu_info_desc")

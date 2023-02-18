@@ -14,18 +14,15 @@ import java.io.Serializable;
 
 /**
  * 品牌
- *
- * @author zhouxinjie
  */
 @Data
 @TableName("pms_brand")
 public class BrandEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    // 通过设置groups属性设定注解生效的触发条件（数组）
-
     /**
      * 品牌id
+     * 通过设置groups属性设定注解生效的触发条件（数组）
      */
     @NotNull(message = "修改必须指定品牌id", groups = {UpdateGroup.class})
     @Null(message = "新增不能指定id", groups = {AddGroup.class})
@@ -37,8 +34,8 @@ public class BrandEntity implements Serializable {
      * 品牌名
      */
     // @NotNull	 不能为null，可以为empty
-    // @NotEmpty 不能为空或者空串（不能为null且长度必须大于0）
-    // 至少是一个非空字符（空格属于空字符）（只能作用在接收的 String 类型上，不能为 null，而且调用 trim() 后，长度必须大于 0即：必须有实际字符）
+    // @NotEmpty 不能为null且长度必须大于0
+    // @NotBlank 必须有实际字符(只能作用于String)
     @NotBlank(message = "品牌名必须提交", groups = {AddGroup.class, UpdateGroup.class})    //message属性用于自定义校验信息
     private String name;
 

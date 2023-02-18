@@ -8,8 +8,6 @@ import java.util.Map;
 
 /**
  * 品牌
- *
- * @author zhouxinjie
  */
 public interface BrandService extends IService<BrandEntity> {
 

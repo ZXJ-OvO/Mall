@@ -5,12 +5,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 /**
- *
- * 2、逻辑删除
- *  1）、配置全局的逻辑删除规则（省略）
- *  2）、配置逻辑删除的组件Bean（省略）
- *  3）、给Bean加上逻辑删除注解@TableLogic
- *
  * 3、JSR303
  *   1）、给Bean添加校验注解:javax.validation.constraints，并定义自己的message提示
  *   2)、开启校验功能@Valid
@@ -60,11 +54,54 @@ public class MallProductApplication {
         持久层对象，理解为数据库中的一条记录，即将一条数据封装
     BO：Business Object
         业务对象，将业务逻辑封装成了对象，形象的描述为一个对象的行为和操作
-
-    Controller：代表控制层
-    View：代表视图层
-
+————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
     SPU：标准产品单位，商品信息聚合的最小单位，即具体到单个商品：YOGA 14s
     SKU：库存量单位，物理上不可分割的最小存货单元，即具体的属性：容量，尺寸
+————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+    校验注解
+    1、值校验：
+    @Null：被注解的元素必须为null
+    @NotNull：不能为 null，但可以为 empty，
+            一般用在 Integer 类型的基本数据类型的非空校验上，
+            其标注的字段可以使用 @size、@Max、@Min 对字段数值进行大小的控制
+    @NotEmpty：
+            不能为 null，且长度必须大于 0，一般用在集合类上或者数组上
+    @NotBlank：
+            只能作用在接收String类型上，不能为null，而且调用trim()后，长度必须大于0
+            即：必须有实际字符
+    @AccessTrue：被注解的元素必须为true，即必须为布尔值
+    @AccessFalse：被注解的元素必须为false，即必须为布尔值
+
+    2、范围校验：
+    @Min：被注解的元素必须大于等于属性值value，类型为Integer、Long、Float、Double
+    @Max：被注解的元素必须小于等于属性值value，类型为Integer、Long、Float、Double
+    @DecimalMin：被注解的元素必须大于等于属性值value，类型为BigDecimal
+    @DecimalMax：被注解的元素必须小于等于属性值value，类型为BigDecimal
+    @Range：验证注解的元素值在最大值和最小值之间，并且类型为BigDecimal、BigInteger、CharSequence、byte、short、int、long
+    @Past：被注解的元素必须是一个过去的时间，类型为java.util.Date
+    @Feature：被注解的元素必须是一个未来的时间，类型为java.util.Date
+
+    3、长度校验
+    @Size：被注解的元素必须在指定的长度之内，并且类型为String、Array、List、Map
+    @Length：被注解的元素处于属性值min和max之间，并且类型为String
+
+    4、格式校验
+    @Email：被注解的元素必须是邮箱格式看，也可以使用regexp和flag属性自定义邮箱格式
+    @Pattern：被注解的元素必须符合指定的正则表达式，并且类型为String
+    @Digits：验证被注解元素的整数位上限和小数位上限，类型为Float、Double、BigDecimal
+————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+    序列化
+    实体类对象实现Serializable的必要性：内存中的对象需要被持久化时需要序列化，则需要实现该接口，可在底层帮助序列化和反序列化
+    序列化需要指定private static final long serialVersionUID = 1L，目的是在序列化和反序列化时做出校验，相同则校验通过，不同抛出序列化校验异常
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)用于指定被注解的属性被序列化时触发的策略
+    ALWAYS：总是序列化所有属性
+    NON_NULL：序列化非NULL
+    NON_ABSENT：序列化非NULL或者引用类型缺省值
+    NON_EMPTY：序列化非EMPTY
+    NON_DEFAULT：仅包含与POJO属性默认值不同的值
+    CUSTOM：不常用
+    USE_DEFAULTS：不常用
+————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+
  */
 }

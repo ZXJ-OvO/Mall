@@ -10,10 +10,6 @@ import lombok.Data;
 
 /**
  * spu信息
- * 
- * @author zhouxinjie
- * @email 206269068@qq.com
- * @date 2022-10-30 17:07:24
  */
 @Data
 @TableName("pms_spu_info")
