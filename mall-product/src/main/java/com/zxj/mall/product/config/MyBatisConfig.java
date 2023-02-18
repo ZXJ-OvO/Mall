@@ -6,12 +6,23 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+/*
+    @Configuration用于定义配置类，可替换xml配置文件，被注解的类内部包含有一个或多个被@Bean注解的方法，
+    这些方法将会被AnnotationConfigApplicationContext或AnnotationConfigWebApplicationContext类进行扫描，并用于构建bean定义，初始化Spring容器。
+ */
+
+/*
+    @EnableTransactionManagement是Spring事务的总开关，开启事务支持后，在访问数据库的Service方法上添加注解@Transactional
+ */
+/**
+ * 配置Mybatis-Plus的相关插件：分页插件（基于Mybatis-Plus V3.2）
+ */
 @Configuration
-@EnableTransactionManagement    // 开启使用
+@EnableTransactionManagement    // 开启使用事务的总开关
 @MapperScan("com.zxj.mall.product.dao")
 public class MyBatisConfig {
 
-    // 引入分页插件 common中引入的mybatis plus版本是3.2，在3.4之后分页插件有所变化
+    // 引入分页插件 common模块中引入的mybatis plus版本是3.2，在3.4之后分页插件有所变化
     @Bean
     public PaginationInterceptor paginationInterceptor() {
         PaginationInterceptor paginationInterceptor = new PaginationInterceptor();

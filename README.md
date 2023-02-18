@@ -4,8 +4,6 @@
 
 个人毕业设计，分布式电商项目
 
-
-
 ### 软件架构
 
 1. renren-fast搭建后台系统
@@ -17,8 +15,6 @@
 7. Nacos做配置中心、注册中心
 8. Gateway做网关
 
-
-
 ### 技术总结&使用说明
 
 #### 分布式基础概念
@@ -29,8 +25,8 @@
 - 服务注册/发现以及引入配置中心集中统一管理服务的配置信息
 - 在微服务架构中，微服务之间通过网络进行通信，存在相互依赖，当其中一个服务不可用时，有可能会造成雪崩效应。要防止这样的情况，必须要有容错机制来保护服务
 
-  - 服务熔断：在微服务架构中，微服务之间通过网络进行通信，存在相互依赖，==当其中一个服务不可用时，有可能会造成雪崩效应。要防止这样的情况，必须要有容错机制来保护服务
-  - 服务降级：在微服务架构中，微服务之间通过网络进行通信，存在相互依赖，==当其中一个服务不可用时，有可能会造成雪崩效应。要防止这样的情况，必须要有容错机制来保护服务
+  - 服务熔断：在微服务架构中，微服务之间通过网络进行通信，存在相互依赖，当其中一个服务不可用时，有可能会造成雪崩效应。要防止这样的情况，必须要有容错机制来保护服务
+  - 服务降级：在微服务架构中，微服务之间通过网络进行通信，存在相互依赖，当其中一个服务不可用时，有可能会造成雪崩效应。要防止这样的情况，必须要有容错机制来保护服务
 - API网关
 
   - 客户端发送请求到服务器路途中，设置一个网关，请求都先到达网关，网关对请求进行统一认证（合法非法）和处理等操作。他是安检
@@ -45,14 +41,12 @@
 - 服务追踪，追踪服务调用哪里出现问题，使用springcloud提供的Sleuth、Zipkin、Metrics，把每个服务的信息交给Prometheus进行聚合分析，再由Grafana进行可视化展示，提供Prometheus提供的AlterManager实时得到服务的告警信息，以短信/邮件的方式告知开发人员。
 - 提供持续集成和持续部署。项目发布起来后，因为微服务众多，每一个都打包部署到服务器太麻烦，有了持续集成后开发人员可以将修改后的代码提交到github，运维人员可以通过自动化工具Jenkins Pipeline将github中获取的代码打包成docker镜像，最终是由k8s集成docker服务，将服务以docker容器的方式运行。
 
-
 #### Linux环境搭建
 
 - 使用Oracle VM VirtualBox虚拟机搭建Linux、设置全局端口转发NAT网络模式
 - Vagrant初始化CentOS/7，主机通过SSH连接虚拟机
 - CentOS/7配置镜像源、安装NPM、YUM、Docker
 - Docker环境下安装配置MySQL、Redis、Nginx
-
 
 #### 开发环境搭建
 
@@ -61,7 +55,7 @@
 - IDEA2022（集成Lombok），配置.gitignore文件
 - Nacos（Dev期间置于Windows下，上线时归整到Linux下）
 - VSCode（插件：Auto Close Tag、Auto Rename Tag、ESlint、HTML CSS Support、HTML Boilerplate、JavaScript ES6、Live Server、Open in browser、Vetur）
-- Git&GitHub
+- Gitee&Git&GitHub
 - Gitee开源项目renren-fast（后台管理）、renren-generator（代码生成器）、renren-fast-vue（项目后台WEB前端）本地初始化
 - Navicat连接Linux并建库建表
 - Node.js V12安装、配置镜像源、配置Python V3支持
@@ -70,7 +64,6 @@
 - MD文档工具Typora、图床SM.MS
 - API测试工具：APIPOST
 - RedisGUI管理平台：RedisInsight。连接与配置
-
 
 #### 逆向工程代码生成
 
@@ -100,7 +93,6 @@ url: jdbc:mysql://192.168.56.10:3306/mall-pms?useUnicode=true&characterEncoding=
 
 **启动服务并修改配置依次建立所需的所有模块代码**
 
-
 #### 模块介绍
 
 mall-common：公共服务依赖
@@ -123,18 +115,6 @@ renren-fast：人人后端
 
 renren-generator：人人生成器
 
-
 #### Nacos配置文件
-
-
-
-
-
-
-
-
-
-
-
 
 ####

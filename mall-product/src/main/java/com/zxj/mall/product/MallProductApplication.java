@@ -5,20 +5,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 /**
- * 1、整合MyBatis-Plus
- *      1）、导入依赖
- *      <dependency>
- *             <groupId>com.baomidou</groupId>
- *             <artifactId>mybatis-plus-boot-starter</artifactId>
- *             <version>3.2.0</version>
- *      </dependency>
- *      2）、配置
- *          1、配置数据源；
- *              1）、导入数据库的驱动。
- *              2）、在application.yml配置数据源相关信息
- *          2、配置MyBatis-Plus；
- *              1）、使用@MapperScan
- *              2）、告诉MyBatis-Plus，sql映射文件位置
  *
  * 2、逻辑删除
  *  1）、配置全局的逻辑删除规则（省略）
@@ -51,9 +37,9 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  *  1）、编写异常处理类，使用@ControllerAdvice。
  *  2）、使用@ExceptionHandler标注方法可以处理的异常。
  */
-@SpringBootApplication
-@MapperScan("com.zxj.mall.product.dao")
-@EnableDiscoveryClient
+@SpringBootApplication  // 配置为启动类
+@MapperScan("com.zxj.mall.product.dao")  // 指定要变成实现类的接口所在的dao包，然后包下面的所有接口在编译之后都会生成相应的实现类
+@EnableDiscoveryClient  // 开启本模块在Nacos上的服务注册与发现功能
 public class MallProductApplication {
 
     public static void main(String[] args) {

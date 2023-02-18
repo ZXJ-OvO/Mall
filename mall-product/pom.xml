@@ -3,6 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <!--使用parent标签引入parent-starter中的依赖-->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -10,12 +11,15 @@
         <relativePath/>
     </parent>
 
+    <!--SNAPSHOT：快照版本-->
+    <!--有关软件版本相关知识请访问：https://blog.csdn.net/nima1994/article/details/80000248-->
     <groupId>com.zxj.mall</groupId>
     <artifactId>mall-product</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>mall-project</name>
     <description>商品服务</description>
 
+    <!--Greenwich.SR3：SpringCloud的版本-->
     <properties>
         <java.version>1.8</java.version>
         <spring-cloud.version>Greenwich.SR3</spring-cloud.version>
@@ -23,22 +27,27 @@
 
     <dependencies>
 
+        <!--引入公共依赖-->
         <dependency>
             <groupId>com.zxj.mall</groupId>
             <artifactId>mall-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
+        <!--web起步依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!--feign是一个声明式的HTTP客户端，他的目的就是让远程调用更加简单。给远程服务发的是HTTP请求。-->
+        <!--feign被Netflix闭源了，使用Alibaba提供的open feign组件-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
 
+        <!--测试起步依赖，配置生效范围为test期间-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -47,6 +56,7 @@
 
     </dependencies>
 
+    <!--依赖版本管理-->
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -59,6 +69,7 @@
         </dependencies>
     </dependencyManagement>
 
+    <!--配置的项目maven插件-->
     <build>
         <plugins>
             <plugin>

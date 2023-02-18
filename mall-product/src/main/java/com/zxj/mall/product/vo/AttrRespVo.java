@@ -4,8 +4,6 @@ import lombok.Data;
 
 /**
  * 用于响应
- *
- * @author 周欣杰
  */
 @Data
 public class AttrRespVo extends AttrVo {
