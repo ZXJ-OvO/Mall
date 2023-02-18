@@ -72,8 +72,8 @@ mall-product：商品服务
 │  ├─SpuInfoServiceImpl
 │  ├─SpuInfoDescServiceImpl
 ├──vo
-│  ├─AttrRespVo
-│  ├─AttrVo
-├──MallProductApplication
+│  ├─AttrRespVo：用于响应的值对象
+│  ├─AttrVo：封装后端传给前端的商品属性
+├──MallProductApplication：启动类
 
 ```

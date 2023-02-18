@@ -3,6 +3,10 @@ package com.zxj.mall.product.vo;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
+/**
+ * VO：后端封装传给前端的值对象
+ * 用于封装相关属性
+ */
 @Data
 public class AttrVo {
 

@@ -45,5 +45,31 @@ public class MallProductApplication {
     public static void main(String[] args) {
         SpringApplication.run(MallProductApplication.class, args);
     }
+/*
+    JavaEE项目常见包结构说明：
+    pojo：Plain Ordinary Java Object
+        简单的无规则的可转化的对象，是以下所有对象类型的统称
+    domain：
+        domain是范围，用来划分作用域，例如常用来存放dao，则其下全是dao文件
+    Entity：Plain Ordinary Java Object
+        与数据库表中的字段一一对应，用于接收表中的数据对象。xxxEntity用于实体类
+    DTO ：Data Transfer Object
+        数据传输对象。接口之间传输时的数据封装
+    DAO：Data Access Object
+        数据访问对象（实际上存放各种dao接口）。是对数据的访问而不是对数据库的访问，数据库访问应该是连接对象
+    DO：Data Object
+        用于封装DAO中的对象，通过DAO向上传输数据源对象。例如xxDO封装联表查询的对象
+    VO：Value Object
+        显示层值对象。xxxVO通常用于封装后端给前端返回（DTO）的出参对象，同时入参可以封装为xxxParam
+    PO：Persistent Object
+        持久层对象，理解为数据库中的一条记录，即将一条数据封装
+    BO：Business Object
+        业务对象，将业务逻辑封装成了对象，形象的描述为一个对象的行为和操作
 
+    Controller：代表控制层
+    View：代表视图层
+
+    SPU：标准产品单位，商品信息聚合的最小单位，即具体到单个商品：YOGA 14s
+    SKU：库存量单位，物理上不可分割的最小存货单元，即具体的属性：容量，尺寸
+ */
 }

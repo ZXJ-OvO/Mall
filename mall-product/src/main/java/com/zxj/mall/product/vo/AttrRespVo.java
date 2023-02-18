@@ -3,9 +3,10 @@ package com.zxj.mall.product.vo;
 import lombok.Data;
 
 /**
+ * VO：用于封装后端传给前端的值对象
  * 用于响应
  */
-@Data
+@Data   //lombok
 public class AttrRespVo extends AttrVo {
     /**
      * 所属分类名字
