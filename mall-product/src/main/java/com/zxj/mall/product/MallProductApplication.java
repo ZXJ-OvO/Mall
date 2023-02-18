@@ -31,11 +31,6 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  *      @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
  *      @Retention(RUNTIME)
  * public @interface ListValue {
- *
- * 4、统一的异常处理
- * @ControllerAdvice
- *  1）、编写异常处理类，使用@ControllerAdvice。
- *  2）、使用@ExceptionHandler标注方法可以处理的异常。
  */
 @SpringBootApplication  // 配置为启动类
 @MapperScan("com.zxj.mall.product.dao")  // 指定要变成实现类的接口所在的dao包，然后包下面的所有接口在编译之后都会生成相应的实现类

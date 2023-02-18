@@ -54,7 +54,7 @@ mall-product：商品服务
 │  ├─SpuInfoDescEntity
 │ 
 ├─exception
-│  ├─MallExceptionControllerAdvice
+│  ├─MallExceptionControllerAdvice：集中处理指定包下的所有异常
 ├──service
 │  ├─AttrAttrgroupRelationServiceImpl
 │  ├─AttrServiceImpl
