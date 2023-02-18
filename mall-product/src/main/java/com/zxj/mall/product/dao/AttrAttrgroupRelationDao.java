@@ -6,12 +6,9 @@ import org.apache.ibatis.annotations.Mapper;
 
 /**
  * 属性&属性分组关联
- * 
- * @author zhouxinjie
- * @email 206269068@qq.com
- * @date 2022-10-30 17:07:24
+ * 注解@Mapper的作用：使该接口被识别为mybatis的Mapper接口，交给Spring管理，由启动类的MapperScanner扫描到后生成动态代理类
  */
 @Mapper
 public interface AttrAttrgroupRelationDao extends BaseMapper<AttrAttrgroupRelationEntity> {
-	
+	// Mybatis-Plus：BaseMapper<接口对应的entity> 封装了一系列的CRUD操作
 }

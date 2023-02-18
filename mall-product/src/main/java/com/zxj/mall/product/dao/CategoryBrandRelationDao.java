@@ -7,13 +7,10 @@ import org.apache.ibatis.annotations.Param;
 
 /**
  * 品牌分类关联
- *
- * @author zhouxinjie
- * @email 206269068@qq.com
- * @date 2022-10-30 17:07:24
  */
 @Mapper
 public interface CategoryBrandRelationDao extends BaseMapper<CategoryBrandRelationEntity> {
 
+    // @Param注解用来命名参数名，该参数名对应着xml文件中的SQL语句里的参数名
     void updateCategory(@Param("catId") Long catId, @Param("name") String name);
 }

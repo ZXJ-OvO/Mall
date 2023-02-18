@@ -6,8 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 
 /**
  * 属性分组
- * 
- * @author zhouxinjie
  */
 @Mapper
 public interface AttrGroupDao extends BaseMapper<AttrGroupEntity> {
