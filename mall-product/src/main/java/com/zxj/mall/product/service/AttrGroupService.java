@@ -8,9 +8,6 @@ import java.util.Map;
 
 /**
  * 属性分组
- *
- * @author zhouxinjie
-
  */
 public interface AttrGroupService extends IService<AttrGroupEntity> {
 

@@ -12,7 +12,10 @@ import com.zxj.mall.product.dao.AttrAttrgroupRelationDao;
 import com.zxj.mall.product.entity.AttrAttrgroupRelationEntity;
 import com.zxj.mall.product.service.AttrAttrgroupRelationService;
 
-
+/*
+    @Service注解用于类上，标记当前类是一个service类，
+    加上该注解会将当前类自动注入到spring容器中，不需要再在applicationContext.xml文件定义bean了
+ */
 @Service("attrAttrgroupRelationService")
 public class AttrAttrgroupRelationServiceImpl extends ServiceImpl<AttrAttrgroupRelationDao, AttrAttrgroupRelationEntity> implements AttrAttrgroupRelationService {
 
@@ -20,7 +23,7 @@ public class AttrAttrgroupRelationServiceImpl extends ServiceImpl<AttrAttrgroupR
     public PageUtils queryPage(Map<String, Object> params) {
         IPage<AttrAttrgroupRelationEntity> page = this.page(
                 new Query<AttrAttrgroupRelationEntity>().getPage(params),
-                new QueryWrapper<AttrAttrgroupRelationEntity>()
+                new QueryWrapper<>()
         );
 
         return new PageUtils(page);

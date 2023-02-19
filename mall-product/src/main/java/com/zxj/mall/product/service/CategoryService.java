@@ -9,10 +9,6 @@ import java.util.Map;
 
 /**
  * 商品三级分类
- *
- * @author zhouxinjie
- * @email 206269068@qq.com
- * @date 2022-10-30 17:07:24
  */
 public interface CategoryService extends IService<CategoryEntity> {
 
