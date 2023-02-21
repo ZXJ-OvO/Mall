@@ -14,8 +14,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 /*
     @EnableTransactionManagement是Spring事务的总开关，开启事务支持后，在访问数据库的Service方法上添加注解@Transactional
  */
+
 /**
  * 配置Mybatis-Plus的相关插件：分页插件（基于Mybatis-Plus V3.2）
+ * 想要实现Mybatis-plus的分页查询必须在此创建Mybatis-plus的配置类并配置上分页插件
+ * 然后去具体需要分页查询的service中编写分页查询
  */
 @Configuration
 @EnableTransactionManagement    // 开启使用事务的总开关
@@ -32,5 +35,18 @@ public class MyBatisConfig {
         paginationInterceptor.setLimit(1000);
         return paginationInterceptor;
     }
+
+    /*
+        3.4
+    @Bean
+    public MybatisPlusInterceptor mybatisPlusInterceptor()
+    {
+        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+        interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
+        return interceptor;
+
+    }
+
+     */
 
 }

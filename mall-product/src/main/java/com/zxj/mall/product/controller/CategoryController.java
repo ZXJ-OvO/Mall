@@ -12,8 +12,6 @@ import java.util.List;
 
 /**
  * 商品三级分类
- *
- * @author 周欣杰
  */
 @RestController
 @RequestMapping("product/category")

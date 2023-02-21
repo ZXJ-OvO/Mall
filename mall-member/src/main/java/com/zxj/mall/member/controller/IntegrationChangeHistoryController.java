@@ -20,10 +20,6 @@ import com.zxj.common.utils.R;
 
 /**
  * 积分变化历史记录
- *
- * @author zhouxinjie
- * @email 206269068@qq.com
- * @date 2022-10-30 17:13:35
  */
 @RestController
 @RequestMapping("member/integrationchangehistory")
@@ -35,7 +31,6 @@ public class IntegrationChangeHistoryController {
      * 列表
      */
     @RequestMapping("/list")
-    //@RequiresPermissions("member:integrationchangehistory:list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = integrationChangeHistoryService.queryPage(params);
 

@@ -35,7 +35,6 @@ public class GrowthChangeHistoryController {
      * 列表
      */
     @RequestMapping("/list")
-    //@RequiresPermissions("member:growthchangehistory:list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = growthChangeHistoryService.queryPage(params);
 

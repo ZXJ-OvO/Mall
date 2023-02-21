@@ -20,10 +20,6 @@ import com.zxj.common.utils.R;
 
 /**
  * 商品spu积分设置
- *
- * @author zhouxinjie
- * @email 206269068@qq.com
- * @date 2022-10-30 17:15:33
  */
 @RestController
 @RequestMapping("coupon/spubounds")
@@ -35,7 +31,6 @@ public class SpuBoundsController {
      * 列表
      */
     @RequestMapping("/list")
-    //@RequiresPermissions("coupon:spubounds:list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = spuBoundsService.queryPage(params);
 
@@ -47,7 +42,6 @@ public class SpuBoundsController {
      * 信息
      */
     @RequestMapping("/info/{id}")
-    //@RequiresPermissions("coupon:spubounds:info")
     public R info(@PathVariable("id") Long id){
 		SpuBoundsEntity spuBounds = spuBoundsService.getById(id);
 
@@ -58,7 +52,6 @@ public class SpuBoundsController {
      * 保存
      */
     @RequestMapping("/save")
-    //@RequiresPermissions("coupon:spubounds:save")
     public R save(@RequestBody SpuBoundsEntity spuBounds){
 		spuBoundsService.save(spuBounds);
 
@@ -69,7 +62,6 @@ public class SpuBoundsController {
      * 修改
      */
     @RequestMapping("/update")
-    //@RequiresPermissions("coupon:spubounds:update")
     public R update(@RequestBody SpuBoundsEntity spuBounds){
 		spuBoundsService.updateById(spuBounds);
 
@@ -80,7 +72,6 @@ public class SpuBoundsController {
      * 删除
      */
     @RequestMapping("/delete")
-    //@RequiresPermissions("coupon:spubounds:delete")
     public R delete(@RequestBody Long[] ids){
 		spuBoundsService.removeByIds(Arrays.asList(ids));
 

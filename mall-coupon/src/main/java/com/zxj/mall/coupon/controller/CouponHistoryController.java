@@ -20,10 +20,6 @@ import com.zxj.common.utils.R;
 
 /**
  * 优惠券领取历史记录
- *
- * @author zhouxinjie
- * @email 206269068@qq.com
- * @date 2022-10-30 17:15:33
  */
 @RestController
 @RequestMapping("coupon/couponhistory")

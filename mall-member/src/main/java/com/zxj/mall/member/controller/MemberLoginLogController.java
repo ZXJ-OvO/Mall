@@ -3,7 +3,6 @@ package com.zxj.mall.member.controller;
 import java.util.Arrays;
 import java.util.Map;
 
-//import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,10 +19,6 @@ import com.zxj.common.utils.R;
 
 /**
  * 会员登录记录
- *
- * @author zhouxinjie
- * @email 206269068@qq.com
- * @date 2022-10-30 17:13:35
  */
 @RestController
 @RequestMapping("member/memberloginlog")
@@ -35,7 +30,6 @@ public class MemberLoginLogController {
      * 列表
      */
     @RequestMapping("/list")
-    //@RequiresPermissions("member:memberloginlog:list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = memberLoginLogService.queryPage(params);
 
@@ -47,7 +41,6 @@ public class MemberLoginLogController {
      * 信息
      */
     @RequestMapping("/info/{id}")
-    //@RequiresPermissions("member:memberloginlog:info")
     public R info(@PathVariable("id") Long id){
 		MemberLoginLogEntity memberLoginLog = memberLoginLogService.getById(id);
 
@@ -58,7 +51,6 @@ public class MemberLoginLogController {
      * 保存
      */
     @RequestMapping("/save")
-    //@RequiresPermissions("member:memberloginlog:save")
     public R save(@RequestBody MemberLoginLogEntity memberLoginLog){
 		memberLoginLogService.save(memberLoginLog);
 
@@ -69,7 +61,6 @@ public class MemberLoginLogController {
      * 修改
      */
     @RequestMapping("/update")
-    //@RequiresPermissions("member:memberloginlog:update")
     public R update(@RequestBody MemberLoginLogEntity memberLoginLog){
 		memberLoginLogService.updateById(memberLoginLog);
 
@@ -80,7 +71,6 @@ public class MemberLoginLogController {
      * 删除
      */
     @RequestMapping("/delete")
-    //@RequiresPermissions("member:memberloginlog:delete")
     public R delete(@RequestBody Long[] ids){
 		memberLoginLogService.removeByIds(Arrays.asList(ids));
 
