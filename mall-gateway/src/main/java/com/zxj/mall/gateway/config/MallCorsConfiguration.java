@@ -6,12 +6,14 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.reactive.CorsWebFilter;
 import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 
-@Configuration
+@Configuration  // gateway
 public class MallCorsConfiguration {
 
-    @Bean
+    @Bean   // 添加过滤器
     public CorsWebFilter corsWebFilter() {
+        // 基于url跨域，选择reactive包下的
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        // 跨域配置信息
         CorsConfiguration corsConfiguration = new CorsConfiguration();
 
         // 1. 配置跨域
