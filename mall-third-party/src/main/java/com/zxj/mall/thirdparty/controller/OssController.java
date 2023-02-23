@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -24,6 +25,7 @@ public class OssController {
     @Autowired
     private OSS ossClient;
 
+    // 属性配置在Nacos注册中心中，注意阿里云官方推荐的AccessKey60天轮换
     @Value("${spring.cloud.alicloud.oss.endpoint}")
     private String endpoint;
 
@@ -34,7 +36,7 @@ public class OssController {
     private String accessId;
 
     /**
-     * 签名方法
+     * 阿里云OSS服务签名方法
      */
     @GetMapping("/oss/policy")
     public R policy(){
@@ -52,11 +54,11 @@ public class OssController {
             policyConds.addConditionItem(MatchMode.StartWith, PolicyConditions.COND_KEY, dir);
 
             String postPolicy = ossClient.generatePostPolicy(expiration, policyConds);
-            byte[] binaryData = postPolicy.getBytes("utf-8");
+            byte[] binaryData = postPolicy.getBytes(StandardCharsets.UTF_8);
             String encodedPolicy = BinaryUtil.toBase64String(binaryData);
             String postSignature = ossClient.calculatePostSignature(postPolicy);
 
-            respMap = new LinkedHashMap<String, String>();
+            respMap = new LinkedHashMap<>();
             respMap.put("accessId", accessId);
             respMap.put("policy", encodedPolicy);
             respMap.put("signature", postSignature);

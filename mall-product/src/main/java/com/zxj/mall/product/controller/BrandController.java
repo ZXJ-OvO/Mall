@@ -52,7 +52,7 @@ public class BrandController {
      */
     @PostMapping("/save")   // @Valid开启校验注解功能
     public R save(@Validated(AddGroup.class) @RequestBody BrandEntity brand/*,BindingResult result*/) {
-/*        //给校验的bean后紧跟一个BindingResult，可以获取到校验的结果
+/*      //给校验的bean后紧跟一个BindingResult，可以获取到校验的结果
         // result.hasErrors 返回值有错误
         if (result.hasErrors()) {
             Map<String, String> map = new HashMap<>();
