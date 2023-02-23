@@ -107,13 +107,20 @@ public class MallProductApplication {
     mp为dao提供了大量的CRUD方法，只需要让dao接口继承BaseMapper<xxxEntity>
     mp同样为service提供了大量的常用方法，只需要让service接口继承IService<xxxEntity>
         然后让serviceImpl接口实现先继承ServiceImpl<xxxDao, xxxEntity>然后再去实现service接口
-        userService .list();        //查询所有
-        userService .count();       //查询数量
-        userService .listByIds());  //根据ID查list集合
-        userService .removeById();  //根据ID删除
-        userService .removeByIds();
-        userService .update();      //修改
-        userService .save();        //新增
+    查看ServiceImpl<xxxDao, xxxEntity>源码：
+    public class ServiceImpl<M extends BaseMapper<T>, T> implements IService<T> {
 
+        @Autowired
+        protected M baseMapper;
+
+        public ServiceImpl() {
+        }
+
+        public M getBaseMapper() {
+            return this.baseMapper;
+    }
+
+    由此可知，baseMapper即就是xxxDao，使得不需要在xxxServiceImpl中使用对应自动装配的dao，而改为直接使用baseMapper去调用函数
+    （此处的baseMapper不同于dao中继承的baseMapper<xxxEntity>  ）
  */
 }

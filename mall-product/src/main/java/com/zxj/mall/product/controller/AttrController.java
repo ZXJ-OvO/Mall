@@ -8,7 +8,6 @@ import com.zxj.mall.product.vo.AttrVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.zxj.mall.product.entity.AttrEntity;
 import com.zxj.mall.product.service.AttrService;
 import com.zxj.common.utils.PageUtils;
 import com.zxj.common.utils.R;
@@ -49,7 +48,7 @@ public class AttrController {
      */
     @RequestMapping("/info/{attrId}")
     public R info(@PathVariable("attrId") Long attrId) {
-        AttrRespVo attrRespVo= attrService.getAttrInfo(attrId);
+        AttrRespVo attrRespVo = attrService.getAttrInfo(attrId);
 
         return R.ok().put("attr", attrRespVo);
     }

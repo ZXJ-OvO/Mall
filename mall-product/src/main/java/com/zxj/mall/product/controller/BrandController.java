@@ -18,7 +18,6 @@ import java.util.Map;
 
 /**
  * 品牌
- * @author zhouxinjie
  */
 @RestController
 @RequestMapping("product/brand")

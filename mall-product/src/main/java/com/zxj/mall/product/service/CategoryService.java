@@ -13,10 +13,14 @@ import java.util.Map;
 public interface CategoryService extends IService<CategoryEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
-
+    /**
+     * 查出所有分类，组装成父子结构
+     */
     List<CategoryEntity> listWithTree();
-
-    void removeMenuByIds(List<Long>  asList);
+    /**
+     * 菜单批量逻辑删除
+     */
+    void removeMenuByIds(List<Long> asList);
 
     // 找到CatelogId的完整路径
     Long[] findCatelogPath(Long catelogId);

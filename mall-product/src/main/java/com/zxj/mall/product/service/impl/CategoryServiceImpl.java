@@ -30,36 +30,43 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     public PageUtils queryPage(Map<String, Object> params) {
         IPage<CategoryEntity> page = this.page(
                 new Query<CategoryEntity>().getPage(params),
-                new QueryWrapper<CategoryEntity>()
+                new QueryWrapper<>()
         );
 
         return new PageUtils(page);
     }
 
+    /* 关于
+        因为在本类中CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity>
+        查看源码可知：
+            public class ServiceImpl<M extends BaseMapper<T>, T>
+            @Autowired
+            protected M baseMapper;
+        所以；等价于 CategoryDao baseMapper
+        因此不用再声明并自动装配一个categoryDao
+     */
     /**
      * 查出所有分类、组装成父子结构
      */
     @Override
     public List<CategoryEntity> listWithTree() {
-        // 1. 查出所有分类
+        // 1. 查出所有分类，baseMapper即为@Autowired CategoryDao categoryDao；参数queryWrapper为查询条件，没有即为null
         List<CategoryEntity> entities = baseMapper.selectList(null);
         // 2. 组装成父子结构
         // 2.1 找出所有的一级分类（一级分类的表数据中parent_cid为0）
-        List<CategoryEntity> level1Menus = entities.stream().filter(categoryEntity ->
+        return entities.stream().filter(categoryEntity ->
                 categoryEntity.getParentCid() == 0
         ).map((menu) -> {
-            menu.setChildren(getChildrens(menu, entities));
+            menu.setChildren(getChildren(menu, entities));
             return menu;
-        }).sorted((menu1, menu2) -> {
-            return (menu1.getSort() == null ? 0 : menu1.getSort()) - (menu2.getSort() == null ? 0 : menu2.getSort());
-        }).collect(Collectors.toList());
-
-        return level1Menus;
+        }).sorted((menu1, menu2) -> (menu1.getSort() == null ? 0 : menu1.getSort()) - (menu2.getSort() == null ? 0 : menu2.getSort())).collect(Collectors.toList());
     }
 
     @Override
     public void removeMenuByIds(List<Long> asList) {
+        // TODO 检查当前删除的菜单是否被别的地方引用
 
+        // 逻辑删除
         baseMapper.deleteBatchIds(asList);
     }
 
@@ -73,8 +80,6 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
 
     /**
      * 级联更新所有关联数据
-     *
-     * @param category
      */
     @Transactional
     @Override
@@ -93,30 +98,17 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         return paths;
     }
 
-
-
-    /* 关于
-        因为在本类中CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity>
-        查看源码可知：
-            public class ServiceImpl<M extends BaseMapper<T>, T>
-            @Autowired
-            protected M baseMapper;
-        所以；等价于 CategoryDao baseMapper
-        因此不用再声明并自动装配一个categoryDao
-     */
-
     /**
      * 递归查找所有菜单的子菜单
      */
-    private List<CategoryEntity> getChildrens(CategoryEntity root, List<CategoryEntity> all) {
-        List<CategoryEntity> children = all.stream().filter(categoryEntity ->
+    private List<CategoryEntity> getChildren(CategoryEntity root, List<CategoryEntity> all) {
+        return all.stream().filter(categoryEntity ->
                 categoryEntity.getParentCid() == root.getCatId()
         ).map(categoryEntity -> {
-            categoryEntity.setChildren(getChildrens(categoryEntity, all));
+            // 找到子菜单
+            categoryEntity.setChildren(getChildren(categoryEntity, all));
             return categoryEntity;
-        }).sorted((menu1, menu2) -> {
-            return (menu1.getSort() == null ? 0 : menu1.getSort()) - (menu2.getSort() == null ? 0 : menu2.getSort());
-        }).collect(Collectors.toList());
-        return children;
+        }).sorted((menu1, menu2) ->(menu1.getSort() == null ? 0 : menu1.getSort()) - (menu2.getSort() == null ? 0 : menu2.getSort())
+        ).collect(Collectors.toList());
     }
 }
