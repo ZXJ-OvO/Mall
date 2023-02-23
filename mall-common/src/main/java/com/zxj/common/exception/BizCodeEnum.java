@@ -1,6 +1,6 @@
 package com.zxj.common.exception;
 
-/***
+/**
  * 错误码和错误信息定义类
  * 1. 错误码定义规则为5为数字
  * 2. 前两位表示业务场景，最后三位表示错误码。例如：100001。10:通用 001:系统未知异常
@@ -12,7 +12,7 @@ package com.zxj.common.exception;
  *  12: 订单
  *  13: 购物车
  *  14: 物流
- *
+ *  <a href="https://blog.csdn.net/github_36086968/article/details/103115128"/a>
  */
 public enum BizCodeEnum {
     UNKNOW_EXCEPTION(10000, "系统未知异常"),

@@ -22,7 +22,7 @@ public class BrandEntity implements Serializable {
 
     /**
      * 品牌id
-     * 通过设置groups属性设定注解生效的触发条件（数组）
+     * 通过设置groups属性设定注解生效的触发条件（数组）  不携带groups的注解默认不生效，实际上没有指定groups的都属于default分组
      */
     @NotNull(message = "修改必须指定品牌id", groups = {UpdateGroup.class})
     @Null(message = "新增不能指定id", groups = {AddGroup.class})
@@ -35,7 +35,7 @@ public class BrandEntity implements Serializable {
      */
     // @NotNull	 不能为null，可以为empty
     // @NotEmpty 不能为null且长度必须大于0
-    // @NotBlank 必须有实际字符(只能作用于String)
+    // @NotBlank 必须有实际字符(只能作用于String)    必须满足AddGroup.class或UpdateGroup.class才触发条件
     @NotBlank(message = "品牌名必须提交", groups = {AddGroup.class, UpdateGroup.class})    //message属性用于自定义校验信息
     private String name;
 

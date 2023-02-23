@@ -50,10 +50,10 @@ public class BrandController {
      * 保存
      * Validated设定指定条件
      */
-    @PostMapping("/save")   // @Valid开启校验注解功能
+    @PostMapping("/save")   // @Validated开启分组校验功能，参数填写校验所属分组
     public R save(@Validated(AddGroup.class) @RequestBody BrandEntity brand/*,BindingResult result*/) {
-/*      //给校验的bean后紧跟一个BindingResult，可以获取到校验的结果
-        // result.hasErrors 返回值有错误
+/*
+        给校验的bean后紧跟一个BindingResult，可以获取到校验的结果，result.hasErrors 返回值有错误
         if (result.hasErrors()) {
             Map<String, String> map = new HashMap<>();
             // 获取校验的错误结果
@@ -88,7 +88,6 @@ public class BrandController {
     @RequestMapping("/update/status")
     public R updateStatus(@Validated(UpdateStatusGroup.class) @RequestBody BrandEntity brand){
         brandService.updateById(brand);
-
         return R.ok();
     }
 

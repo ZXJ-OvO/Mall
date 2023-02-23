@@ -5,28 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
-/**
- * 3、JSR303
- * 1）、给Bean添加校验注解:javax.validation.constraints，并定义自己的message提示
- * 2)、开启校验功能@Valid
- * 效果：校验错误以后会有默认的响应；
- * 3）、给校验的bean后紧跟一个BindingResult，就可以获取到校验的结果
- * 4）、分组校验（多场景的复杂校验）
- * 1)、	@NotBlank(message = "品牌名必须提交",groups = {AddGroup.class,UpdateGroup.class})
- * 给校验注解标注什么情况需要进行校验
- * 2）、@Validated({AddGroup.class})
- * 3)、默认没有指定分组的校验注解@NotBlank，在分组校验情况@Validated({AddGroup.class})下不生效，只会在@Validated生效；
- * <p>
- * 5）、自定义校验
- * 1）、编写一个自定义的校验注解
- * 2）、编写一个自定义的校验器 ConstraintValidator
- * 3）、关联自定义的校验器和自定义的校验注解
- *
- * @Documented
- * @Constraint(validatedBy = { ListValueConstraintValidator.class【可以指定多个不同的校验器，适配不同类型的校验】 })
- * @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
- * @Retention(RUNTIME) public @interface ListValue {
- */
+
 @SpringBootApplication  // 配置为启动类
 @MapperScan("com.zxj.mall.product.dao")  // 指定要变成实现类的接口所在的dao包，然后包下面的所有接口在编译之后都会生成相应的实现类
 @EnableDiscoveryClient  // 开启本模块在Nacos上的服务注册与发现功能
@@ -35,6 +14,8 @@ public class MallProductApplication {
     public static void main(String[] args) {
         SpringApplication.run(MallProductApplication.class, args);
     }
+}
+
 /*
     JavaEE项目常见包结构说明：
     pojo：Plain Ordinary Java Object
@@ -90,6 +71,7 @@ public class MallProductApplication {
     @Email：被注解的元素必须是邮箱格式看，也可以使用regexp和flag属性自定义邮箱格式
     @Pattern：被注解的元素必须符合指定的正则表达式，并且类型为String
     @Digits：验证被注解元素的整数位上限和小数位上限，类型为Float、Double、BigDecimal
+    @URL:被注解的元素必须是一串合法的url地址
 ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
     序列化
     实体类对象实现Serializable的必要性：内存中的对象需要被持久化时需要序列化，则需要实现该接口，可在底层帮助序列化和反序列化
@@ -122,5 +104,27 @@ public class MallProductApplication {
 
     由此可知，baseMapper即就是xxxDao，使得不需要在xxxServiceImpl中使用对应自动装配的dao，而改为直接使用baseMapper去调用函数
     （此处的baseMapper不同于dao中继承的baseMapper<xxxEntity>  ）
+————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+    JSR303校验
+
+     1.给entity中需要校验的字段添加校验注解（参考上方的校验注解），按需添加自定义message提示
+     2.在需要校验的Controller的参数列表里添加注解@Valid开启校验功能。效果：校验错误以后会有默认的响应；
+        发生异常时返回的json不是我们的R对象，而是mvc的内置类，使用@Valid解决
+     3.给校验的bean后紧跟一个BindingResult，就可以获取前一个对象的校验结果。BindingResult有一个方法result.hasErrors可以用来作为条件判断是否有error
+        public R save(@Valid @RequestBody BrandEntity brand,BindingResult result)
+
+    分组校验
+     1.@NotBlank(message = "品牌名必须提交",groups = {AddGroup.class,UpdateGroup.class})给校验注解标注什么情况需要进行校验
+     2.@Validated({AddGroup.class})
+     3.默认没有指定分组的校验注解@NotBlank，在分组校验情况@Validated({AddGroup.class})下不生效，只会在@Validated生效，实际上没有指定分组的校验注解属于default分组
+        此外还可以在实体类上标注@GroupSequece({A.class,B.class})指定校验顺序
+        通过@GroupSequence指定验证顺序：先验证A分组，如果有错误立即返回而不会验证B分组，接着如果A分组验证通过了才去验证B分组
+
+     自定义校验
+     1.编写一个自定义的校验注解
+     2.编写一个自定义的校验器 ConstraintValidator
+     3.关联自定义的校验器和自定义的校验注解
+     详见common-valid  如验证手机号格式，可以参考<a href=https://blog.csdn.net/GAMEloft9/article/details/81699500/a>
+
+
  */
-}
