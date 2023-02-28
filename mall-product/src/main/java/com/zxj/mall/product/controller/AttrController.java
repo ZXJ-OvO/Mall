@@ -57,7 +57,7 @@ public class AttrController {
      * 保存
      */
     @RequestMapping("/save")
-    public R save(@RequestBody AttrVo attr) {
+    public R save(@RequestBody AttrVo attr) {   //attrVo多收集一个attrGroupId
         attrService.saveAttr(attr);
 
         return R.ok();

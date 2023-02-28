@@ -57,10 +57,10 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
     @Transactional
     @Override
     public void saveAttr(AttrVo attr) {
-        AttrEntity attrEntity = new AttrEntity();
+        AttrEntity attrEntity = new AttrEntity();   // PO
         // BeanUtils提供了如下方法复制属性，将参数一的属性复制到参数二中
         // 前提是参数一的属性在参数二中都是一一对应的
-        BeanUtils.copyProperties(attr, attrEntity);
+        BeanUtils.copyProperties(attr, attrEntity); // 将VO（attr）中的值复制到PO（attrEntity）中
         // 保存基本数据
         this.save(attrEntity);
 

@@ -31,7 +31,7 @@ public class AttrGroupController {
     @GetMapping("/list/{catelogId}")    // @RequestParam用于将我请求路径中指定的请求参数赋值给方法中的形参。
     public R list(@RequestParam Map<String, Object> params,
                   @PathVariable("catelogId") Long catelogId) {  // @PathVariable用于取出路径变量/list/{catelogId}中的参数值
-        PageUtils page = attrGroupService.queryPage(params, catelogId); // params分页参数
+        PageUtils page = attrGroupService.queryPage(params, catelogId); // 分页查询  params分页参数
         return R.ok().put("page", page);
     }
 
