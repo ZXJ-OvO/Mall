@@ -11,6 +11,9 @@ import java.util.Map;
  */
 public interface BrandService extends IService<BrandEntity> {
 
+    /**
+     * 根据传递进来的分页信息的Map集合
+     */
     PageUtils queryPage(Map<String, Object> params);
 
     void updateDetail(BrandEntity brand);

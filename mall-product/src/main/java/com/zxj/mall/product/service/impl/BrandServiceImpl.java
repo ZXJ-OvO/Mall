@@ -23,20 +23,22 @@ public class BrandServiceImpl extends ServiceImpl<BrandDao, BrandEntity> impleme
     @Autowired
     CategoryBrandRelationService categoryBrandRelationService;
 
+    /**
+     * 品牌模糊查询
+     */
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
-        // 进行模糊查询
+        // params带的key值有可能是字符串
         String key = (String) params.get("key");
         // 传过来的key有值，说明需要进行模糊检索
         QueryWrapper<BrandEntity> queryWrapper = new QueryWrapper<>();
+        //如果key值不为空
         if (!StringUtils.isEmpty(key)) {
-           // 模糊匹配要么就是id等于传过来的key值，要么就是name等于传过来的值
+            // 模糊匹配要么就是id等于传过来的key值，要么就是name等于传过来的值
             queryWrapper.eq("brand_id", key).or().like("name", key);
         }
 
-        IPage<BrandEntity> page = this.page(
-                new Query<BrandEntity>().getPage(params), queryWrapper
-        );
+        IPage<BrandEntity> page = this.page(new Query<BrandEntity>().getPage(params), queryWrapper);
 
         return new PageUtils(page);
     }
@@ -46,9 +48,9 @@ public class BrandServiceImpl extends ServiceImpl<BrandDao, BrandEntity> impleme
     public void updateDetail(BrandEntity brand) {
         // 保证冗余字段的数据一致
         this.updateById(brand);
-        if(!StringUtils.isEmpty(brand.getName())){
+        if (!StringUtils.isEmpty(brand.getName())) {
             // 同步更新其他关联的表数据
-            categoryBrandRelationService.updateBrand(brand.getBrandId(),brand.getName());
+            categoryBrandRelationService.updateBrand(brand.getBrandId(), brand.getName());
 
             // TODO 更新其他关联
         }

@@ -30,6 +30,8 @@ public class BrandController {
      */
     @GetMapping("/list")
     public R list(@RequestParam Map<String, Object> params) {
+
+        // 品牌的模糊查询，查询结果都被封装成PageUtils类型
         PageUtils page = brandService.queryPage(params);
 
         return R.ok().put("page", page);
