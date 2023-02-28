@@ -11,10 +11,16 @@ import org.apache.commons.lang.StringUtils;
 import java.util.Map;
 
 /**
- * 查询参数
+ * 工具类-查询参数
  */
 public class Query<T> {
 
+    /**
+     * 传入Map分页参数，返回得到IPage<T>
+     *
+     * @param params 分页查询Map参数
+     * @return IPage
+     */
     public IPage<T> getPage(Map<String, Object> params) {
         return this.getPage(params, null, false);
     }

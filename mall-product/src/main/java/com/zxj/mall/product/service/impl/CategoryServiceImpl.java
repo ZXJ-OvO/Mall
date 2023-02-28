@@ -45,6 +45,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         所以；等价于 CategoryDao baseMapper
         因此不用再声明并自动装配一个categoryDao
      */
+
     /**
      * 查出所有分类、组装成父子结构
      */
@@ -70,10 +71,15 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         baseMapper.deleteBatchIds(asList);
     }
 
+    /**
+     * 根据当前所属分类的id查出当前对应的完整路径
+     */
     @Override
     public Long[] findCatelogPath(Long catelogId) {
         List<Long> paths = new ArrayList<>();
         List<Long> parentPath = findParentPath(catelogId, paths);
+
+        // 收集进来的路径是逆序的，使用Collections工具类的方法reverse对集合中的元素进行反转
         Collections.reverse(parentPath);
         return parentPath.toArray(new Long[parentPath.size()]);
     }
@@ -88,13 +94,17 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         categoryBrandRelationService.updateCategory(category.getCatId(), category.getName());
     }
 
+    /**
+     * 迭代收集每次查到节点数据，传入要查找的分类id和收集路径的容器paths
+     */
     private List<Long> findParentPath(Long catelogId, List<Long> paths) {
-        // 收集当前节点
-        paths.add(catelogId);
+        paths.add(catelogId);        // 收集当前节点
         CategoryEntity byId = this.getById(catelogId);
         if (byId.getParentCid() != 0) {
+            // 递归判断有没有父id，有的话把父id收集进来
             findParentPath(byId.getParentCid(), paths);
         }
+        // 递归到最后发现没有父id了就将所有的父id组合起来与当前的分类id一起返回就是当前所属分类的完整路径
         return paths;
     }
 
@@ -108,7 +118,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
             // 找到子菜单
             categoryEntity.setChildren(getChildren(categoryEntity, all));
             return categoryEntity;
-        }).sorted((menu1, menu2) ->(menu1.getSort() == null ? 0 : menu1.getSort()) - (menu2.getSort() == null ? 0 : menu2.getSort())
+        }).sorted((menu1, menu2) -> (menu1.getSort() == null ? 0 : menu1.getSort()) - (menu2.getSort() == null ? 0 : menu2.getSort())
         ).collect(Collectors.toList());
     }
 }

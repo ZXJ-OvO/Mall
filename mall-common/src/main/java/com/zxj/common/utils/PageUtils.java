@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 分页工具类
+ * 分页工具类，封装了分页查询的结果
  */
 public class PageUtils implements Serializable {
     private static final long serialVersionUID = 1L;

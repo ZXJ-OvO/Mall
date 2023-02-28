@@ -28,10 +28,10 @@ public class AttrGroupController {
     /**
      * 列表
      */
-    @GetMapping("/list/{catelogId}")
+    @GetMapping("/list/{catelogId}")    // @RequestParam用于将我请求路径中指定的请求参数赋值给方法中的形参。
     public R list(@RequestParam Map<String, Object> params,
-                  @PathVariable("catelogId") Long catelogId) {
-        PageUtils page = attrGroupService.queryPage(params, catelogId);
+                  @PathVariable("catelogId") Long catelogId) {  // @PathVariable用于取出路径变量/list/{catelogId}中的参数值
+        PageUtils page = attrGroupService.queryPage(params, catelogId); // params分页参数
         return R.ok().put("page", page);
     }
 
@@ -42,7 +42,7 @@ public class AttrGroupController {
     public R info(@PathVariable("attrGroupId") Long attrGroupId) {
         AttrGroupEntity attrGroup = attrGroupService.getById(attrGroupId);
         Long catelogId = attrGroup.getCatelogId();
-        Long[] path = categoryService.findCatelogPath(catelogId);
+        Long[] path = categoryService.findCatelogPath(catelogId);       // 根据当前所属分了id找出完整的路径
         attrGroup.setCatelogPath(path);
         return R.ok().put("attrGroup", attrGroup);
     }

@@ -124,7 +124,36 @@ public class MallProductApplication {
      1.编写一个自定义的校验注解
      2.编写一个自定义的校验器 ConstraintValidator
      3.关联自定义的校验器和自定义的校验注解
-     详见common-valid  如验证手机号格式，可以参考<a href=https://blog.csdn.net/GAMEloft9/article/details/81699500/a>
+     详见common-valid  如验证手机号格式，可以参考<https://blog.csdn.net/GAMEloft9/article/details/81699500>
+————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+    @RequestBody、 @RequestParam 、 @PathVariable 、@Valid 注解的使用及区别
+
+    - @RequestBody 主要用来接收前端传递给后端的 json 字符串中的数据(请求体中的数据)
+      Get 方式无请求体，所以使用 @RequestBody 接收数据时，前端不能使用 Get 方式提交数据;而是使用 Post 方式进行提交的
+      在后端的同一个接收方法里，@RequestBody 与 @RequestParam() 可以同时使用;
+      一个请求，只有一个 RequestBody；一个请求，可以有多个 RequestParam
+    - @RequestParam（）指定的参数可以是普通元素、 数组、集合、对象等等
+      即：如果参数时放在请求体中，传入后台的话，那么后台要用 @RequestBody 才能接收到；如果不是放
+      在请求体中的话，那么后台接收前台传过来的参数时，要用 @RequestParam 来接收，或则形参前什么也不写也能接收
+
+    - @RequestParam 用于将请求参数区域的数据映射到控制层功能处理方法的参数上
+    - @RequestParam(value=“参数名”, required=“true/false”, defaultValue="")
+        1、value：请求中传入参数的名称，如果不设置后台接口的 value 值，则会默认为该变量名。
+        2、required：是否包含该参数，默认为 true，表示该请求路径中必须包含该参数，如果不包含就报404等错误。
+        3、defaultValue：默认参数值，如果设置了该值，required=true 将失效，自动为 false,如果没有传该参数，就使用默认值。
+
+    - @PathVariable接收请求路径中占位符的值
+      @PathVariable 注解可以将 URL 中占位符参数绑定到控制器处理方法的入参中
+      URL 中的 {xxx} 占位符可以通过 @PathVariable(“xxx“) 绑定到操作方法的入参中
+
+      在Get请求中，不能使用@RequestBody。在Post请求，可以使用@RequestBody和@RequestParam，但是如果使用@RequestBody，对于参数转化的配置必须统一
+      @RequestParam注解接收的参数是来自于请求头。都是用来获取请求路径url中的动态参数。也就是在url中，格式为xxx?username=123&password=456
+      @RequestBody注解接收的参数则是来自于请求体中
+      @RequestParam和@PathVariable 注解是用于从request中接收请求的，两个都可以接收参数，关键点不同的是@RequestParam是从request里面拿取值，而@PathVariable是从一个url模板里面来填充
+      @RequestParam注解是获取静态url传入的参数
+      @PathVariable是获取请求路径中的变量作为参数,需要和@RequestMapping(“item/{itemId}”)配合使用。
+————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+
 
 
  */
