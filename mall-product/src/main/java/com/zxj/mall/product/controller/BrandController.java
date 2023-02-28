@@ -79,6 +79,7 @@ public class BrandController {
      */
     @RequestMapping("/update")
     public R update(@Validated(UpdateGroup.class) @RequestBody BrandEntity brand) {
+        // 所有冗余存储设计的中间表为了数据的一致性，都必须进行同步更新
         brandService.updateDetail(brand);
 
         return R.ok();
@@ -88,7 +89,7 @@ public class BrandController {
      * 修改状态
      */
     @RequestMapping("/update/status")
-    public R updateStatus(@Validated(UpdateStatusGroup.class) @RequestBody BrandEntity brand){
+    public R updateStatus(@Validated(UpdateStatusGroup.class) @RequestBody BrandEntity brand) {
         brandService.updateById(brand);
         return R.ok();
     }

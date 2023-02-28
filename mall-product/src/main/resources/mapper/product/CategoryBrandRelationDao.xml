@@ -12,7 +12,7 @@
         <result property="catelogName" column="catelog_name"/>
     </resultMap>
     <!--更新品牌分类关联表-->
-    <update id="updateCategory">
+    <update id="updateCategory"> # 这里的#{name}#{catId}来自于Mapper接口中的@Param注解标注参数的自拟名 分类的名字为指定的名字 条件是分类的id为传入的指定id
         update `pms_category_brand_relation` set catelog_name=#{name} where catelog_id=#{catId}
     </update>
 

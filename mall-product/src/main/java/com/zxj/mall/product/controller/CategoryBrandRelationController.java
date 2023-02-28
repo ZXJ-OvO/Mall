@@ -16,7 +16,7 @@ import com.zxj.common.utils.R;
 
 
 /**
- * 品牌分类关联
+ * 品牌的关联分类
  */
 @RestController
 @RequestMapping("product/categorybrandrelation")
@@ -61,7 +61,7 @@ public class CategoryBrandRelationController {
      */
     @PostMapping("/save")
     public R save(@RequestBody CategoryBrandRelationEntity categoryBrandRelation){
-
+        // 调用save之前得先确定品牌的id品牌的名字对应的内容
 
 		categoryBrandRelationService.saveDetail(categoryBrandRelation);
 

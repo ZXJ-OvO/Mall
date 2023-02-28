@@ -43,11 +43,15 @@ public class BrandServiceImpl extends ServiceImpl<BrandDao, BrandEntity> impleme
         return new PageUtils(page);
     }
 
-    @Transactional
+    /**
+     * 更新冗余字段设计的中间表，确保因为字段中涉及的其他表中的字段发发生了修改后影响了数据一致性
+     */
+    @Transactional  // 添加事务注解
     @Override
     public void updateDetail(BrandEntity brand) {
-        // 保证冗余字段的数据一致
+        // 把当前自己表中的品牌更新掉
         this.updateById(brand);
+        // 如果此次更新的品牌里面有更新品牌名字（即传进来的包含了修改信息brand对象中存在brandName字段）
         if (!StringUtils.isEmpty(brand.getName())) {
             // 同步更新其他关联的表数据
             categoryBrandRelationService.updateBrand(brand.getBrandId(), brand.getName());

@@ -90,7 +90,8 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     @Transactional
     @Override
     public void updateCascade(CategoryEntity category) {
-        this.updateById(category);
+        this.updateById(category);  // 按照id先对自己更新
+        // 对关联表的字段进行更新（级联更新）
         categoryBrandRelationService.updateCategory(category.getCatId(), category.getName());
     }
 

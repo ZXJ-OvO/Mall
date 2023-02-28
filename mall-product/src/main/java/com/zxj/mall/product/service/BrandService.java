@@ -16,6 +16,9 @@ public interface BrandService extends IService<BrandEntity> {
      */
     PageUtils queryPage(Map<String, Object> params);
 
+    /**
+     * 更新中间表的冗余字段确保数据的一致性
+     */
     void updateDetail(BrandEntity brand);
 }
 

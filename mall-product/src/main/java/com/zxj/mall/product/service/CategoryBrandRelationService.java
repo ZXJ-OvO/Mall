@@ -13,10 +13,18 @@ public interface CategoryBrandRelationService extends IService<CategoryBrandRela
 
     PageUtils queryPage(Map<String, Object> params);
 
+    /**
+     * 保存详细细节
+     */
     void saveDetail(CategoryBrandRelationEntity categoryBrandRelation);
-
+    /**
+     * 更新关联表
+     */
     void updateBrand(Long brandId, String name);
 
+    /**
+     * 传入三级分类的id，需要更新的最新的名字
+     */
     void updateCategory(Long catId, String name);
 }
 

@@ -42,21 +42,26 @@ public class CategoryBrandRelationServiceImpl extends ServiceImpl<CategoryBrandR
     public void saveDetail(CategoryBrandRelationEntity categoryBrandRelation) {
         Long brandId = categoryBrandRelation.getBrandId();
         Long catelogId = categoryBrandRelation.getCatelogId();
-        // 查询详细名字
+        // 根据获取的品牌id和分类id得到对应的实体类信息然后查询详细名字
         BrandEntity brandEntity = brandDao.selectById(brandId);
         CategoryEntity categoryEntity = categoryDao.selectById(catelogId);
 
+        // 给中间表（关联关系表）设置对应的字段信息，将分类和品牌相关联绑定
         categoryBrandRelation.setBrandName(brandEntity.getName());
         categoryBrandRelation.setCatelogName(categoryEntity.getName());
 
         this.save(categoryBrandRelation);
     }
 
+    /**
+     * 更新关联表
+     */
     @Override
     public void updateBrand(Long brandId, String name) {
         CategoryBrandRelationEntity relationEntity = new CategoryBrandRelationEntity();
         relationEntity.setBrandId(brandId);
         relationEntity.setBrandName(name);
+        // 更新使用更新wrapper
         this.update(relationEntity, new UpdateWrapper<CategoryBrandRelationEntity>().eq("brand_id", brandId));
     }
 

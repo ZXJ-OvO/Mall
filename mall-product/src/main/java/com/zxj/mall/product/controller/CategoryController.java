@@ -53,6 +53,7 @@ public class CategoryController {
      */
     @PutMapping("/update")
     public R update(@RequestBody CategoryEntity category) {
+        // 和中间表一起做统一更新
         categoryService.updateCascade(category);
         return R.ok();
     }
