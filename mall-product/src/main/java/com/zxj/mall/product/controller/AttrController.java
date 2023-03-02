@@ -47,7 +47,7 @@ public class AttrController {
 
 
     /**
-     * 信息
+     * 查询属性详情
      */
     @RequestMapping("/info/{attrId}")
     public R info(@PathVariable("attrId") Long attrId) {
@@ -67,7 +67,7 @@ public class AttrController {
     }
 
     /**
-     * 修改
+     * 商品系统-平台属性-商品属性-修改  修改&新增%数据回显
      */
     @RequestMapping("/update")
     public R update(@RequestBody AttrVo attr) {

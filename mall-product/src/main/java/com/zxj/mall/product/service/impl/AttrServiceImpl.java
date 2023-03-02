@@ -1,6 +1,7 @@
 package com.zxj.mall.product.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zxj.common.utils.PageUtils;
@@ -130,26 +131,25 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
     @Override
     public AttrRespVo getAttrInfo(Long attrId) {
         AttrRespVo respVo = new AttrRespVo();
-        AttrEntity attrEntity = this.getById(attrId);
-        BeanUtils.copyProperties(attrEntity, respVo);
+        AttrEntity attrEntity = this.getById(attrId);   // 查询当前attrEntity的详细信息
+        BeanUtils.copyProperties(attrEntity, respVo);   // 将查询出来的attrEntity中的数据拷贝到respVo里面
 
+        // respVo中除了包含attrEntity中的数据还应该有分组id和所属的分类的完整路径
 
-//        if (attrEntity.getAttrType() == ProductConstant.AttrEnum.ATTR_TYPE_BASE.getCode()) {
-//            //1、设置分组信息
-//            AttrAttrgroupRelationEntity attrgroupRelation = relationDao.selectOne(new QueryWrapper<AttrAttrgroupRelationEntity>().eq("attr_id", attrId));
-//            if (attrgroupRelation != null)  {
-//                respVo.setAttrGroupId(attrgroupRelation.getAttrGroupId());
-//                AttrGroupEntity attrGroupEntity = attrGroupDao.selectById(attrgroupRelation.getAttrGroupId());
-//                if (attrGroupEntity != null) {
-//                    respVo.setGroupName(attrGroupEntity.getAttrGroupName());
-//                }
-//            }
-//        }
+        //1、设置分组信息
+        AttrAttrgroupRelationEntity attrgroupRelation = relationDao.selectOne(new QueryWrapper<AttrAttrgroupRelationEntity>().eq("attr_id", attrId));
+        if (attrgroupRelation != null) {
+            respVo.setAttrGroupId(attrgroupRelation.getAttrGroupId());
+            AttrGroupEntity attrGroupEntity = attrGroupDao.selectById(attrgroupRelation.getAttrGroupId());
+            if (attrGroupEntity != null) {
+                respVo.setGroupName(attrGroupEntity.getAttrGroupName());
+            }
+        }
 
 
         //2、设置分类信息
         Long catelogId = attrEntity.getCatelogId();
-        Long[] catelogPath = categoryService.findCatelogPath(catelogId);
+        Long[] catelogPath = categoryService.findCatelogPath(catelogId);    // findCatelogPath 根据当前所属分类的id找出当前的完整路径
         respVo.setCatelogPath(catelogPath);
 
         CategoryEntity categoryEntity = categoryDao.selectById(catelogId);
@@ -157,34 +157,35 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
             respVo.setCatelogName(categoryEntity.getName());
         }
 
-
         return respVo;
     }
+
 
     @Transactional
     @Override
     public void updateAttr(AttrVo attr) {
+        // 基本信息的修改
         AttrEntity attrEntity = new AttrEntity();
         BeanUtils.copyProperties(attr, attrEntity);
         this.updateById(attrEntity);
 
-/*        if (attrEntity.getAttrType() == ProductConstant.AttrEnum.ATTR_TYPE_BASE.getCode()) {
-            //1、修改分组关联
-            AttrAttrgroupRelationEntity relationEntity = new AttrAttrgroupRelationEntity();
+        //1、修改分组关联
+        AttrAttrgroupRelationEntity relationEntity = new AttrAttrgroupRelationEntity();
 
-            relationEntity.setAttrGroupId(attr.getAttrGroupId());
-            relationEntity.setAttrId(attr.getAttrId());
+        // 设置新提交来的数据
+        relationEntity.setAttrGroupId(attr.getAttrGroupId());
+        relationEntity.setAttrId(attr.getAttrId());
 
-            Integer count = relationDao.selectCount(new QueryWrapper<AttrAttrgroupRelationEntity>().eq("attr_id", attr.getAttrId()));
-            if (count > 0) {
-
-
-                relationDao.update(relationEntity, new UpdateWrapper<AttrAttrgroupRelationEntity>().eq("attr_id", attr.getAttrId()));
-
-            } else {
-                relationDao.insert(relationEntity);
-            }
-        }*/
+        // 根据 Wrapper 条件，查询总记录数
+        Integer count = relationDao.selectCount(new QueryWrapper<AttrAttrgroupRelationEntity>().eq("attr_id", attr.getAttrId()));
+        // 根据记录数来判断当前的操作是新增还是更新
+        if (count > 0) {    // 存在记录，当前操作为更新
+            // 成功更新关联关系
+            relationDao.update(relationEntity, new UpdateWrapper<AttrAttrgroupRelationEntity>().eq("attr_id", attr.getAttrId()));
+        } else {    // 不存在记录，当前的操作为新增
+            relationDao.insert(relationEntity);
+        }
     }
+
 
 }
