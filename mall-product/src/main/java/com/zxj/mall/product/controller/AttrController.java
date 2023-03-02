@@ -29,7 +29,7 @@ public class AttrController {
     @GetMapping("/{attrType}/list/{catelogId}")
     public R baseAttrList(@RequestParam Map<String, Object> params,
                           @PathVariable("catelogId") Long catelogId,
-                          @PathVariable("attrType") String type) {
+                          @PathVariable("attrType") String type) {  //type为1即为基本属性否则为销售属性
 
         PageUtils page = attrService.queryBaseAttrPage(params, catelogId, type);
         return R.ok().put("page", page);
