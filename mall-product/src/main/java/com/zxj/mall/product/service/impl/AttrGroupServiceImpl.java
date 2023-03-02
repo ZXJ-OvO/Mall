@@ -27,7 +27,8 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
         return new PageUtils(page);
     }
 
-/*    @Override
+/*
+    @Override
     public PageUtils queryPage(Map<String, Object> params, Long catelogId) {
         if (catelogId == 0) {
             IPage<AttrGroupEntity> page = this.page(new Query<AttrGroupEntity>().getPage(params),
@@ -47,7 +48,7 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
     }*/
 
     /**
-     * 分页查询
+     * （商品系统-平台属性-属性分组）三级分类的分页查询
      *
      * @param params    pageUtils原本的分页请求参数
      * @param catelogId 从请求路径中解析得到的分类id
@@ -55,20 +56,22 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
      */
     @Override
     public PageUtils queryPage(Map<String, Object> params, Long catelogId) {
-
+        // 如果没有三级分类就传0，0代表查所有
 
         String key = (String) params.get("key");
         //select * from pms_attr_group where catelog_id=? and (attr_group_id=key or attr_group_name like %key%)
-        QueryWrapper<AttrGroupEntity> wrapper = new QueryWrapper<AttrGroupEntity>();
+        QueryWrapper<AttrGroupEntity> wrapper = new QueryWrapper<>();
         if (!StringUtils.isEmpty(key)) {
-            wrapper.and((obj) -> {
-                obj.eq("attr_group_id", key).or().like("attr_group_name", key);
-            });
+            wrapper.and((obj) -> obj.eq("attr_group_id", key).or().like("attr_group_name", key));
         }
+
+
         // 没有选中三级分类就传0，0代表查所有；否则查询给定的
         if (catelogId == 0) {
-            /* this 可以代表任何对象，当 this 出现在某个方法体中时，它所代表的对象是不确定的，但它的类型是确定的，它所代表的只能是当前类的实例。
-             只有当这个方法被调用时，它所代表的对象才被确定下来，谁在调用这个方法，this 就代表谁。*/
+            /*
+             this 可以代表任何对象，当 this 出现在某个方法体中时，它所代表的对象是不确定的，但它的类型是确定的，它所代表的只能是当前类的实例。
+             只有当这个方法被调用时，它所代表的对象才被确定下来，谁在调用这个方法，this 就代表谁。
+             */
             // this.page(IPage分页信息, 查询条件信息)   通过new Query<xxxEntity>().getPage(Map分页信息参数)得到一个IPage分页信息对象
             IPage<AttrGroupEntity> page = this.page(new Query<AttrGroupEntity>().getPage(params), wrapper);
 

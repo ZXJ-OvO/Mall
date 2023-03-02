@@ -133,16 +133,16 @@ public class MallProductApplication {
       在后端的同一个接收方法里，@RequestBody 与 @RequestParam() 可以同时使用;
       一个请求，只有一个 RequestBody；一个请求，可以有多个 RequestParam
     - @RequestParam（）指定的参数可以是普通元素、 数组、集合、对象等等
-      即：如果参数时放在请求体中，传入后台的话，那么后台要用 @RequestBody 才能接收到；如果不是放
-      在请求体中的话，那么后台接收前台传过来的参数时，要用 @RequestParam 来接收，或则形参前什么也不写也能接收
+      即：如果参数时放在请求体中，传入后台的话，那么后台要用 @RequestBody 才能接收到；
+      如果不是放在请求体中的话，那么后台接收前台传过来的参数时，要用 @RequestParam 来接收，或则形参前什么也不写也能接收
 
-    - @RequestParam 用于将请求参数区域的数据映射到控制层功能处理方法的参数上
+    - @RequestParam 用于将请求参数区域的数据映射到控制层功能处理方法的参数上（读取参数并接收）
     - @RequestParam(value=“参数名”, required=“true/false”, defaultValue="")
         1、value：请求中传入参数的名称，如果不设置后台接口的 value 值，则会默认为该变量名。
         2、required：是否包含该参数，默认为 true，表示该请求路径中必须包含该参数，如果不包含就报404等错误。
         3、defaultValue：默认参数值，如果设置了该值，required=true 将失效，自动为 false,如果没有传该参数，就使用默认值。
 
-    - @PathVariable接收请求路径中占位符的值
+    - @PathVariable接收请求路径中占位符的值（读取路径变量）
       @PathVariable 注解可以将 URL 中占位符参数绑定到控制器处理方法的入参中
       URL 中的 {xxx} 占位符可以通过 @PathVariable(“xxx“) 绑定到操作方法的入参中
 

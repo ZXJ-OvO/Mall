@@ -65,6 +65,7 @@ public class CategoryEntity implements Serializable {
     /**
      * 子节点
      * 注解@JsonInclude的作用：指定实体类在序列化时的策略
+     * 当商品系统-平台属性-属性分组-新增-所属分类 选择到第三级分类时，第三级分类不应该有子节点
      */
     @JsonInclude(JsonInclude.Include.NON_EMPTY)    // 值不为空的时候，返回对象时才会带上该属性（在序列化时，值不为空才进行序列化持久化存储）
     @TableField(exist = false)  // 该字段在表中不存在，为业务需要临时创建，该属性值的数据不会被持久化

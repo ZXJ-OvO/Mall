@@ -23,6 +23,9 @@ public class AttrController {
     private AttrService attrService;
 
 
+    /**
+     * 属性列表的查询
+     */
     @GetMapping("/{attrType}/list/{catelogId}")
     public R baseAttrList(@RequestParam Map<String, Object> params,
                           @PathVariable("catelogId") Long catelogId,

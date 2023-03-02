@@ -14,7 +14,6 @@ import java.util.Map;
 
 /**
  * 属性分组
- *
  */
 @RestController
 @RequestMapping("product/attrgroup")
@@ -26,12 +25,13 @@ public class AttrGroupController {
     private CategoryService categoryService;
 
     /**
-     * 列表
+     * 商品系统-平台属性-属性分组  三级分类树分页查询所有属性 & 第三级指定类目的所有属性分页查询 & 属性列表的模糊匹配&分页查询
      */
     @GetMapping("/list/{catelogId}")    // @RequestParam用于将我请求路径中指定的请求参数赋值给方法中的形参。
     public R list(@RequestParam Map<String, Object> params,
                   @PathVariable("catelogId") Long catelogId) {  // @PathVariable用于取出路径变量/list/{catelogId}中的参数值
-        PageUtils page = attrGroupService.queryPage(params, catelogId); // 分页查询  params分页参数
+        // 返回的分页数据被封装成PageUtils
+        PageUtils page = attrGroupService.queryPage(params, catelogId); // params分页请求参数  catelogId 三级分类id
         return R.ok().put("page", page);
     }
 

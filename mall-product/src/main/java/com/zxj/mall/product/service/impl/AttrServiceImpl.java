@@ -72,6 +72,14 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
 
     }
 
+    /**
+     * 规格参数中的数据显示
+     *
+     * @param params    前端传递进来的分页查询数据
+     * @param catelogId 所属分类id
+     * @param type
+     * @return
+     */
     @Override
     public PageUtils queryBaseAttrPage(Map<String, Object> params, Long catelogId, String type) {
         QueryWrapper<AttrEntity> queryWrapper = new QueryWrapper<>();
@@ -86,13 +94,12 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
                 wrapper.eq("attr_id", key).or().like("attr_name", key);
             });
         }
-        IPage<AttrEntity> page = this.page(
-                new Query<AttrEntity>().getPage(params),
-                queryWrapper
-        );
+
+        IPage<AttrEntity> page = this.page(new Query<AttrEntity>().getPage(params), queryWrapper);
 
         PageUtils pageUtils = new PageUtils(page);
         List<AttrEntity> records = page.getRecords();
+
         List<AttrRespVo> respVos = records.stream().map((attrEntity) -> {
             AttrRespVo attrRespVo = new AttrRespVo();
             BeanUtils.copyProperties(attrEntity, attrRespVo);
@@ -127,7 +134,7 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
 //        if (attrEntity.getAttrType() == ProductConstant.AttrEnum.ATTR_TYPE_BASE.getCode()) {
 //            //1、设置分组信息
 //            AttrAttrgroupRelationEntity attrgroupRelation = relationDao.selectOne(new QueryWrapper<AttrAttrgroupRelationEntity>().eq("attr_id", attrId));
-//            if (attrgroupRelation != null) {
+//            if (attrgroupRelation != null)  {
 //                respVo.setAttrGroupId(attrgroupRelation.getAttrGroupId());
 //                AttrGroupEntity attrGroupEntity = attrGroupDao.selectById(attrgroupRelation.getAttrGroupId());
 //                if (attrGroupEntity != null) {
