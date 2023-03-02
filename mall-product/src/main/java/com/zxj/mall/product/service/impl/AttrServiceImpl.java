@@ -1,7 +1,6 @@
 package com.zxj.mall.product.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zxj.common.utils.PageUtils;
@@ -48,7 +47,7 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
     public PageUtils queryPage(Map<String, Object> params) {
         IPage<AttrEntity> page = this.page(
                 new Query<AttrEntity>().getPage(params),
-                new QueryWrapper<AttrEntity>()
+                new QueryWrapper<>()
         );
 
         return new PageUtils(page);
@@ -73,7 +72,7 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
     }
 
     /**
-     * 规格参数中的数据显示
+     * 商品系统-平台属性-商品属性  三级分类第三级分类所有属性分页查询 & 第三级分类指定类目分页查询 & -查询按键模糊&分页查询
      *
      * @param params    前端传递进来的分页查询数据
      * @param catelogId 所属分类id
@@ -82,42 +81,46 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
      */
     @Override
     public PageUtils queryBaseAttrPage(Map<String, Object> params, Long catelogId, String type) {
+        // 查询条件
         QueryWrapper<AttrEntity> queryWrapper = new QueryWrapper<>();
 
+        // 查询指定的三级分类id下的所有属性
         if (catelogId != 0) {
             queryWrapper.eq("catelog_id", catelogId).eq("attr_type", "base".equalsIgnoreCase(type) ? 1 : 0);
         }
 
+        // 在传递进来的请求参数params中获取前端的key即模糊查询条件
         String key = (String) params.get("key");
         if (!StringUtils.isEmpty(key)) {
-            queryWrapper.and((wrapper) -> {
-                wrapper.eq("attr_id", key).or().like("attr_name", key);
-            });
+            queryWrapper.and((wrapper) -> wrapper.eq("attr_id", key).or().like("attr_name", key));
         }
 
+        // 包装成IPage，封装给PageUtils
         IPage<AttrEntity> page = this.page(new Query<AttrEntity>().getPage(params), queryWrapper);
-
         PageUtils pageUtils = new PageUtils(page);
-        List<AttrEntity> records = page.getRecords();
 
+        List<AttrEntity> records = page.getRecords();   // getRecords 分页对象记录列表
         List<AttrRespVo> respVos = records.stream().map((attrEntity) -> {
             AttrRespVo attrRespVo = new AttrRespVo();
-            BeanUtils.copyProperties(attrEntity, attrRespVo);
 
-            // 设置分类和分组
+            BeanUtils.copyProperties(attrEntity, attrRespVo);   //将attrEntity中的属性复制到attrRespVo
+
+            // 设置attrRespVo中特有的属性：分类和分组的名字
+            // 在中间表根据属性的id查出分组的id
             AttrAttrgroupRelationEntity attrId = relationDao.selectOne(new QueryWrapper<AttrAttrgroupRelationEntity>().eq("attr_id", attrEntity.getAttrId()));
-
+            // 设置分组信息
             if (attrId != null) {
                 AttrGroupEntity attrGroupEntity = attrGroupDao.selectById(attrId.getAttrGroupId());
-                attrRespVo.setGroupName(attrGroupEntity.getAttrGroupName());
+                attrRespVo.setGroupName(attrGroupEntity.getAttrGroupName());    // 查出当前分组的信息，然后根据分组的信息给他设置分组名
             }
-
+            // 设置分了信息
             CategoryEntity categoryEntity = categoryDao.selectById(attrEntity.getCatelogId());
             if (categoryEntity != null) {
                 attrRespVo.setCatelogName(categoryEntity.getName());
             }
-            return attrRespVo;
-        }).collect(Collectors.toList());
+
+            return attrRespVo;  // 此时attrRespVo的所有属性都有了值去做响应
+        }).collect(Collectors.toList());    // 收集成一个集合
 
         pageUtils.setList(respVos);
         return pageUtils;
@@ -165,23 +168,23 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
         BeanUtils.copyProperties(attr, attrEntity);
         this.updateById(attrEntity);
 
-//        if (attrEntity.getAttrType() == ProductConstant.AttrEnum.ATTR_TYPE_BASE.getCode()) {
-//            //1、修改分组关联
-//            AttrAttrgroupRelationEntity relationEntity = new AttrAttrgroupRelationEntity();
-//
-//            relationEntity.setAttrGroupId(attr.getAttrGroupId());
-//            relationEntity.setAttrId(attr.getAttrId());
-//
-//            Integer count = relationDao.selectCount(new QueryWrapper<AttrAttrgroupRelationEntity>().eq("attr_id", attr.getAttrId()));
-//            if (count > 0) {
-//
-        //
-//                relationDao.update(relationEntity, new UpdateWrapper<AttrAttrgroupRelationEntity>().eq("attr_id", attr.getAttrId()));
-//
-//            } else {
-//                relationDao.insert(relationEntity);
-//            }
-//        }
+/*        if (attrEntity.getAttrType() == ProductConstant.AttrEnum.ATTR_TYPE_BASE.getCode()) {
+            //1、修改分组关联
+            AttrAttrgroupRelationEntity relationEntity = new AttrAttrgroupRelationEntity();
+
+            relationEntity.setAttrGroupId(attr.getAttrGroupId());
+            relationEntity.setAttrId(attr.getAttrId());
+
+            Integer count = relationDao.selectCount(new QueryWrapper<AttrAttrgroupRelationEntity>().eq("attr_id", attr.getAttrId()));
+            if (count > 0) {
+
+
+                relationDao.update(relationEntity, new UpdateWrapper<AttrAttrgroupRelationEntity>().eq("attr_id", attr.getAttrId()));
+
+            } else {
+                relationDao.insert(relationEntity);
+            }
+        }*/
     }
 
 }
