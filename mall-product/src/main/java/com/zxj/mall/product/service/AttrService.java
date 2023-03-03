@@ -6,6 +6,7 @@ import com.zxj.mall.product.entity.AttrEntity;
 import com.zxj.mall.product.vo.AttrRespVo;
 import com.zxj.mall.product.vo.AttrVo;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,5 +23,11 @@ public interface AttrService extends IService<AttrEntity> {
     AttrRespVo getAttrInfo(Long attrId);
 
     void updateAttr(AttrVo attr);
+    /**
+     * 根据分组id，找到组内关联的所有属性（基本属性）
+     * @param attrgroupId 分组id
+     * @return 属性列表
+     */
+    List<AttrEntity> getRelationAttr(Long attrgroupId);
 }
 

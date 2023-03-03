@@ -2,13 +2,16 @@ package com.zxj.mall.product.controller;
 
 import com.zxj.common.utils.PageUtils;
 import com.zxj.common.utils.R;
+import com.zxj.mall.product.entity.AttrEntity;
 import com.zxj.mall.product.entity.AttrGroupEntity;
 import com.zxj.mall.product.service.AttrGroupService;
+import com.zxj.mall.product.service.AttrService;
 import com.zxj.mall.product.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 
@@ -23,6 +26,20 @@ public class AttrGroupController {
 
     @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    private AttrService attrService;
+
+    /**
+     * 分组与属性关联的功能 获取属性分组的关联的所有属性
+     * @param attrgroupId 分组id
+     * @return 属性分组里面的所有属性
+     */
+    @GetMapping("/{attrgroupId}/attr/relation")
+    public R attrRelation(@PathVariable("attrgroupId") Long attrgroupId){
+        List<AttrEntity> entities =  attrService.getRelationAttr(attrgroupId);  // 根据分组id，找到组内关联的所有属性
+        return R.ok().put("data",entities);
+    }
 
     /**
      * 商品系统-平台属性-属性分组  三级分类树分页查询所有属性 & 第三级指定类目的所有属性分页查询 & 属性列表的模糊匹配&分页查询
