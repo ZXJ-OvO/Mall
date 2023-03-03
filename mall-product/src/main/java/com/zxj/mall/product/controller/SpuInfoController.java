@@ -36,7 +36,6 @@ public class SpuInfoController {
         return R.ok().put("page", page);
     }
 
-
     /**
      * 信息
      */

@@ -36,6 +36,7 @@ public class AttrGroupController {
     @Autowired
     AttrAttrgroupRelationService relationService;
 
+
     /**
      * 新增关联关系
      */
@@ -46,14 +47,14 @@ public class AttrGroupController {
         return R.ok();
     }
 
-//    @GetMapping("/{catelogId}/withattr")
-//    public R getAttrGroupWithAttrs(@PathVariable("catelogId")Long catelogId){
-//
-//        //1、查出当前分类下的所有属性分组，
-//        //2、查出每个属性分组的所有属性
-//        List<AttrGroupWithAttrsVo> vos =  attrGroupService.getAttrGroupWithAttrsByCatelogId(catelogId);
-//        return R.ok().put("data",vos);
-//    }
+    @GetMapping("/{catelogId}/withattr")
+    public R getAttrGroupWithAttrs(@PathVariable("catelogId")Long catelogId){
+
+        //1、查出当前分类下的所有属性分组，
+        //2、查出每个属性分组的所有属性
+        List<AttrGroupWithAttrsVo> vos =  attrGroupService.getAttrGroupWithAttrsByCatelogId(catelogId);
+        return R.ok().put("data",vos);
+    }
 
     /**
      * 分组与属性关联的功能 获取属性分组的关联的所有属性
@@ -72,15 +73,6 @@ public class AttrGroupController {
                             @RequestParam Map<String, Object> params){
         PageUtils page = attrService.getNoRelationAttr(params,attrgroupId);
         return R.ok().put("page",page);
-    }
-
-    /**
-     * 删除
-     */
-    @RequestMapping("/delete")
-    public R delete(@RequestBody Long[] attrGroupIds) {
-        attrGroupService.removeByIds(Arrays.asList(attrGroupIds));
-        return R.ok();
     }
 
     /**
@@ -136,6 +128,13 @@ public class AttrGroupController {
         return R.ok();
     }
 
-
+    /**
+     * 删除
+     */
+    @RequestMapping("/delete")
+    public R delete(@RequestBody Long[] attrGroupIds) {
+        attrGroupService.removeByIds(Arrays.asList(attrGroupIds));
+        return R.ok();
+    }
 
 }

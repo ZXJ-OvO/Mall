@@ -1,8 +1,11 @@
 package com.zxj.mall.product.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
+import com.zxj.mall.product.entity.ProductAttrValueEntity;
+import com.zxj.mall.product.service.ProductAttrValueService;
 import com.zxj.mall.product.vo.AttrRespVo;
 import com.zxj.mall.product.vo.AttrVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +24,9 @@ import com.zxj.common.utils.R;
 public class AttrController {
     @Autowired
     private AttrService attrService;
+
+    @Autowired
+    ProductAttrValueService productAttrValueService;
 
 
     /**
@@ -72,6 +78,15 @@ public class AttrController {
     @RequestMapping("/update")
     public R update(@RequestBody AttrVo attr) {
         attrService.updateAttr(attr);
+
+        return R.ok();
+    }
+
+    @PostMapping("/update/{spuId}")
+    public R updateSpuAttr(@PathVariable("spuId") Long spuId,
+                           @RequestBody List<ProductAttrValueEntity> entities){
+
+        productAttrValueService.updateSpuAttr(spuId,entities);
 
         return R.ok();
     }

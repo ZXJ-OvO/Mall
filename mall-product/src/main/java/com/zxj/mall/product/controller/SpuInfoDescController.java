@@ -36,7 +36,6 @@ public class SpuInfoDescController {
         return R.ok().put("page", page);
     }
 
-
     /**
      * 信息
      */

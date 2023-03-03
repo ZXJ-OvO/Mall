@@ -37,7 +37,6 @@ public class BrandController {
         return R.ok().put("page", page);
     }
 
-
     /**
      * 信息
      */

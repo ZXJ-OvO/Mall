@@ -28,7 +28,6 @@ public class CategoryController {
         return R.ok().put("data", entities);
     }
 
-
     /**
      * 信息
      */
@@ -49,22 +48,22 @@ public class CategoryController {
     }
 
     /**
-     * 修改
-     */
-    @PutMapping("/update")
-    public R update(@RequestBody CategoryEntity category) {
-        // 和中间表一起做统一更新
-        categoryService.updateCascade(category);
-        return R.ok();
-    }
-
-    /**
      * 批量修改单个目标的属性
      */
     @PutMapping("/update/sort")
     public R updateSort(@RequestBody CategoryEntity[] category){
         // 传递进来的数组category包含了所有修改的信息，对于没有的信息即为不修改，使用iService自带的批量修改函数，传递一个集合，将数组转化成集合
         categoryService.updateBatchById(Arrays.asList(category));
+        return R.ok();
+    }
+
+    /**
+     * 修改
+     */
+    @PutMapping("/update")
+    public R update(@RequestBody CategoryEntity category) {
+        // 和中间表一起做统一更新
+        categoryService.updateCascade(category);
         return R.ok();
     }
 
