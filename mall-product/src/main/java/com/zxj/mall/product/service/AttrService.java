@@ -3,6 +3,7 @@ package com.zxj.mall.product.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zxj.common.utils.PageUtils;
 import com.zxj.mall.product.entity.AttrEntity;
+import com.zxj.mall.product.vo.AttrGroupRelationVo;
 import com.zxj.mall.product.vo.AttrRespVo;
 import com.zxj.mall.product.vo.AttrVo;
 
@@ -29,5 +30,7 @@ public interface AttrService extends IService<AttrEntity> {
      * @return 属性列表
      */
     List<AttrEntity> getRelationAttr(Long attrgroupId);
+
+    void deleteRelation(AttrGroupRelationVo[] vos);
 }
 

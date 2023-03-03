@@ -3,6 +3,9 @@ package com.zxj.mall.product.dao;
 import com.zxj.mall.product.entity.AttrAttrgroupRelationEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * 属性&属性分组关联
@@ -10,5 +13,6 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface AttrAttrgroupRelationDao extends BaseMapper<AttrAttrgroupRelationEntity> {
-	// Mybatis-Plus：BaseMapper<接口对应的entity> 封装了一系列的CRUD操作
+    void deleteBatchRelation(@Param("entities") List<AttrAttrgroupRelationEntity> entities);
+    // Mybatis-Plus：BaseMapper<接口对应的entity> 封装了一系列的CRUD操作
 }

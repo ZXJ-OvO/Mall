@@ -17,6 +17,7 @@ import com.zxj.mall.product.entity.AttrGroupEntity;
 import com.zxj.mall.product.entity.CategoryEntity;
 import com.zxj.mall.product.service.AttrService;
 import com.zxj.mall.product.service.CategoryService;
+import com.zxj.mall.product.vo.AttrGroupRelationVo;
 import com.zxj.mall.product.vo.AttrRespVo;
 import com.zxj.mall.product.vo.AttrVo;
 import org.springframework.beans.BeanUtils;
@@ -25,6 +26,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -214,6 +216,22 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
         Collection<AttrEntity> attrEntities = this.listByIds(attrIds);
 
         return (List<AttrEntity>) attrEntities;
+    }
+
+    /**
+     * 删除关联关系
+     */
+    @Override
+    public void deleteRelation(AttrGroupRelationVo[] vos) {
+        //relationDao.delete(new QueryWrapper<>().eq("attrId",1L).eq("attr_group_id",1L));
+        // 只发一次删除请求，批量删除
+        // 将页面收集来的vos转换成list收集
+        List<AttrAttrgroupRelationEntity> entities = Arrays.asList(vos).stream().map((item) -> {
+            AttrAttrgroupRelationEntity attrAttrgroupRelationEntity = new AttrAttrgroupRelationEntity();
+            BeanUtils.copyProperties(item, attrAttrgroupRelationEntity); // 将数据复制到attrAttrgroupRelationEntity
+            return attrAttrgroupRelationEntity;
+        }).collect(Collectors.toList()); // attrAttrgroupRelationEntity返回成list
+        relationDao.deleteBatchRelation(entities);
     }
 
 }

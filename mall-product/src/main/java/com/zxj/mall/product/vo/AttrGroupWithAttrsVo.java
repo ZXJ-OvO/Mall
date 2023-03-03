@@ -1,10 +1,11 @@
 package com.zxj.mall.product.vo;
 
-import com.atguigu.gulimall.product.entity.AttrEntity;
-import com.baomidou.mybatisplus.annotation.TableId;
+
+import com.zxj.mall.product.entity.AttrEntity;
 import lombok.Data;
 
 import java.util.List;
+
 
 @Data
 public class AttrGroupWithAttrsVo {

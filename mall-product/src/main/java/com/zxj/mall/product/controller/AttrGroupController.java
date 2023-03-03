@@ -7,6 +7,7 @@ import com.zxj.mall.product.entity.AttrGroupEntity;
 import com.zxj.mall.product.service.AttrGroupService;
 import com.zxj.mall.product.service.AttrService;
 import com.zxj.mall.product.service.CategoryService;
+import com.zxj.mall.product.vo.AttrGroupRelationVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -89,6 +90,16 @@ public class AttrGroupController {
     @RequestMapping("/delete")
     public R delete(@RequestBody Long[] attrGroupIds) {
         attrGroupService.removeByIds(Arrays.asList(attrGroupIds));
+        return R.ok();
+    }
+
+    /**
+     * 删除属性与属性分组的关联关系
+     * @param vos 请求参数vo ： attrId、attrGroupId
+     */
+    @PostMapping("attr//relation/delete")
+    public R deleteRelation(@RequestBody AttrGroupRelationVo[] vos){
+        attrService.deleteRelation(vos);
         return R.ok();
     }
 
