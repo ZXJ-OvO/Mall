@@ -18,6 +18,5 @@
         <module>mall-common</module>
         <module>mall-gateway</module>
         <module>renren-fast</module>
-        <module>renren-generator</module>
     </modules>
 </project>
