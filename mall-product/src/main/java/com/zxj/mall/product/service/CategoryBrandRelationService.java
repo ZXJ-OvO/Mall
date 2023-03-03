@@ -2,8 +2,10 @@ package com.zxj.mall.product.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zxj.common.utils.PageUtils;
+import com.zxj.mall.product.entity.BrandEntity;
 import com.zxj.mall.product.entity.CategoryBrandRelationEntity;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,5 +28,7 @@ public interface CategoryBrandRelationService extends IService<CategoryBrandRela
      * 传入三级分类的id，需要更新的最新的名字
      */
     void updateCategory(Long catId, String name);
+
+    List<BrandEntity> getBrandsByCatId(Long catId);
 }
 
