@@ -2,6 +2,7 @@ package com.zxj.mall.product;
 
 
 import com.zxj.mall.product.entity.BrandEntity;
+import com.zxj.mall.product.service.AttrService;
 import com.zxj.mall.product.service.BrandService;
 import com.zxj.mall.product.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +25,9 @@ public class MallProductApplicationTests {
     @Autowired
     CategoryService categoryService;
 
+    @Autowired
+    AttrService attrService;
+
     @Test
     public void contextLoads() {
         BrandEntity brandEntity = new BrandEntity();
@@ -37,5 +41,6 @@ public class MallProductApplicationTests {
         Long[] catelogPath = categoryService.findCatelogPath(225L);
         log.info("完整路径：{}", Arrays.asList(catelogPath));
     }
+
 
 }

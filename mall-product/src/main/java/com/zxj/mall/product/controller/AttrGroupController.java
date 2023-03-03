@@ -4,10 +4,12 @@ import com.zxj.common.utils.PageUtils;
 import com.zxj.common.utils.R;
 import com.zxj.mall.product.entity.AttrEntity;
 import com.zxj.mall.product.entity.AttrGroupEntity;
+import com.zxj.mall.product.service.AttrAttrgroupRelationService;
 import com.zxj.mall.product.service.AttrGroupService;
 import com.zxj.mall.product.service.AttrService;
 import com.zxj.mall.product.service.CategoryService;
 import com.zxj.mall.product.vo.AttrGroupRelationVo;
+import com.zxj.mall.product.vo.AttrGroupWithAttrsVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,15 +33,64 @@ public class AttrGroupController {
     @Autowired
     private AttrService attrService;
 
+    @Autowired
+    AttrAttrgroupRelationService relationService;
+
+    /**
+     * 新增关联关系
+     */
+    @PostMapping("/attr/relation")
+    public R addRelation(@RequestBody List<AttrGroupRelationVo> vos){
+
+        relationService.saveBatch(vos);
+        return R.ok();
+    }
+
+//    @GetMapping("/{catelogId}/withattr")
+//    public R getAttrGroupWithAttrs(@PathVariable("catelogId")Long catelogId){
+//
+//        //1、查出当前分类下的所有属性分组，
+//        //2、查出每个属性分组的所有属性
+//        List<AttrGroupWithAttrsVo> vos =  attrGroupService.getAttrGroupWithAttrsByCatelogId(catelogId);
+//        return R.ok().put("data",vos);
+//    }
+
     /**
      * 分组与属性关联的功能 获取属性分组的关联的所有属性
-     * @param attrgroupId 分组id
-     * @return 属性分组里面的所有属性
      */
     @GetMapping("/{attrgroupId}/attr/relation")
     public R attrRelation(@PathVariable("attrgroupId") Long attrgroupId){
         List<AttrEntity> entities =  attrService.getRelationAttr(attrgroupId);  // 根据分组id，找到组内关联的所有属性
         return R.ok().put("data",entities);
+    }
+
+    /**
+     * 查询属性分组没有关联的其他属性
+     */
+    @GetMapping("/{attrgroupId}/noattr/relation")
+    public R attrNoRelation(@PathVariable("attrgroupId") Long attrgroupId,
+                            @RequestParam Map<String, Object> params){
+        PageUtils page = attrService.getNoRelationAttr(params,attrgroupId);
+        return R.ok().put("page",page);
+    }
+
+    /**
+     * 删除
+     */
+    @RequestMapping("/delete")
+    public R delete(@RequestBody Long[] attrGroupIds) {
+        attrGroupService.removeByIds(Arrays.asList(attrGroupIds));
+        return R.ok();
+    }
+
+    /**
+     * 删除属性与属性分组的关联关系
+     * @param vos 请求参数vo ： attrId、attrGroupId
+     */
+    @PostMapping("attr//relation/delete")
+    public R deleteRelation(@RequestBody AttrGroupRelationVo[] vos){
+        attrService.deleteRelation(vos);
+        return R.ok();
     }
 
     /**
@@ -75,6 +126,7 @@ public class AttrGroupController {
         return R.ok();
     }
 
+
     /**
      * 修改
      */
@@ -84,23 +136,6 @@ public class AttrGroupController {
         return R.ok();
     }
 
-    /**
-     * 删除
-     */
-    @RequestMapping("/delete")
-    public R delete(@RequestBody Long[] attrGroupIds) {
-        attrGroupService.removeByIds(Arrays.asList(attrGroupIds));
-        return R.ok();
-    }
 
-    /**
-     * 删除属性与属性分组的关联关系
-     * @param vos 请求参数vo ： attrId、attrGroupId
-     */
-    @PostMapping("attr//relation/delete")
-    public R deleteRelation(@RequestBody AttrGroupRelationVo[] vos){
-        attrService.deleteRelation(vos);
-        return R.ok();
-    }
 
 }
