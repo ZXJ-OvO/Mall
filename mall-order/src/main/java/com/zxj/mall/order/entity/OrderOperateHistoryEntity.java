@@ -9,10 +9,6 @@ import lombok.Data;
 
 /**
  * 订单操作历史记录
- * 
- * @author zhouxinjie
- * @email 206269068@qq.com
- * @date 2022-10-30 17:11:41
  */
 @Data
 @TableName("oms_order_operate_history")

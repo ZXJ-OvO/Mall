@@ -8,13 +8,6 @@ import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
 
-/**
- * 
- * 
- * @author zhouxinjie
- * @email 206269068@qq.com
- * @date 2022-10-30 17:00:32
- */
 @Data
 @TableName("wms_purchase_detail")
 public class PurchaseDetailEntity implements Serializable {

@@ -10,10 +10,6 @@ import lombok.Data;
 
 /**
  * 会员等级
- * 
- * @author zhouxinjie
- * @email 206269068@qq.com
- * @date 2022-10-30 17:13:35
  */
 @Data
 @TableName("ums_member_level")

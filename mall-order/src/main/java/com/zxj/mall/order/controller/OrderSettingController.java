@@ -3,7 +3,6 @@ package com.zxj.mall.order.controller;
 import java.util.Arrays;
 import java.util.Map;
 
-//import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,10 +19,6 @@ import com.zxj.common.utils.R;
 
 /**
  * 订单配置信息
- *
- * @author zhouxinjie
- * @email 206269068@qq.com
- * @date 2022-10-30 17:11:41
  */
 @RestController
 @RequestMapping("order/ordersetting")
@@ -35,7 +30,6 @@ public class OrderSettingController {
      * 列表
      */
     @RequestMapping("/list")
-    //@RequiresPermissions("order:ordersetting:list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = orderSettingService.queryPage(params);
 
@@ -47,7 +41,6 @@ public class OrderSettingController {
      * 信息
      */
     @RequestMapping("/info/{id}")
-    //@RequiresPermissions("order:ordersetting:info")
     public R info(@PathVariable("id") Long id){
 		OrderSettingEntity orderSetting = orderSettingService.getById(id);
 
@@ -58,7 +51,6 @@ public class OrderSettingController {
      * 保存
      */
     @RequestMapping("/save")
-    //@RequiresPermissions("order:ordersetting:save")
     public R save(@RequestBody OrderSettingEntity orderSetting){
 		orderSettingService.save(orderSetting);
 
@@ -69,7 +61,6 @@ public class OrderSettingController {
      * 修改
      */
     @RequestMapping("/update")
-    //@RequiresPermissions("order:ordersetting:update")
     public R update(@RequestBody OrderSettingEntity orderSetting){
 		orderSettingService.updateById(orderSetting);
 
@@ -80,7 +71,6 @@ public class OrderSettingController {
      * 删除
      */
     @RequestMapping("/delete")
-    //@RequiresPermissions("order:ordersetting:delete")
     public R delete(@RequestBody Long[] ids){
 		orderSettingService.removeByIds(Arrays.asList(ids));
 

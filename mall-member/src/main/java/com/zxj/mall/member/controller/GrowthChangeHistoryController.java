@@ -3,7 +3,6 @@ package com.zxj.mall.member.controller;
 import java.util.Arrays;
 import java.util.Map;
 
-//import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,10 +19,6 @@ import com.zxj.common.utils.R;
 
 /**
  * 成长值变化历史记录
- *
- * @author zhouxinjie
- * @email 206269068@qq.com
- * @date 2022-10-30 17:13:35
  */
 @RestController
 @RequestMapping("member/growthchangehistory")

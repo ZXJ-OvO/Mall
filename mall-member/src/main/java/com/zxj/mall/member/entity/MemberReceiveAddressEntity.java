@@ -9,10 +9,6 @@ import lombok.Data;
 
 /**
  * 会员收货地址
- * 
- * @author zhouxinjie
- * @email 206269068@qq.com
- * @date 2022-10-30 17:13:35
  */
 @Data
 @TableName("ums_member_receive_address")
