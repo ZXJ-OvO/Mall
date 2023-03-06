@@ -25,8 +25,9 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
     @Autowired
     WareSkuDao wareSkuDao;
 
-    @Autowired
-    ProductFeignService productFeignService;
+    //TODO feign bean
+//    @Autowired
+//    ProductFeignService productFeignService;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -54,7 +55,13 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
         return new PageUtils(page);
     }
 
+    // TODO feign bean
     @Override
+    public void addStock(Long skuId, Long wareId, Integer skuNum){
+        System.out.println("feign");
+    }
+
+/*    @Override
     public void addStock(Long skuId, Long wareId, Integer skuNum) {
         //1、判断如果还没有这个库存记录新增
         List<WareSkuEntity> entities = wareSkuDao.selectList(new QueryWrapper<WareSkuEntity>().eq("sku_id", skuId).eq("ware_id", wareId));
@@ -84,6 +91,6 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
             wareSkuDao.addStock(skuId,wareId,skuNum);
         }
 
-    }
+    }*/
 
 }

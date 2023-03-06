@@ -27,7 +27,7 @@ public class MemberLevelController {
     private MemberLevelService memberLevelService;
 
     /**
-     * 列表
+     * 查出所有的会员等级
      */
     @RequestMapping("/list")
     public R list(@RequestParam Map<String, Object> params){
